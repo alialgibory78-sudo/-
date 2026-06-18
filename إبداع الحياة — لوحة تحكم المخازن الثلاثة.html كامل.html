@@ -1,0 +1,1903 @@
+<!DOCTYPE html>
+<!-- saved from url=(0054)file:///C:/Users/lenovo/Downloads/ibda-alhaya-v3.html# -->
+<html lang="ar" dir="rtl"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>إبداع الحياة — لوحة تحكم المخازن الثلاثة</title>
+<script src="./إبداع الحياة — لوحة تحكم المخازن الثلاثة.html كامل_files/chart.umd.js.download"></script>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;900&family=Inter:wght@300;400;500;600;700;900&display=swap');
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#0d1117;--bg2:#161b22;--bg3:#21262d;--bg4:#30363d;
+  --border:rgba(255,255,255,0.07);--border2:rgba(255,255,255,0.14);
+  --text:#e6edf3;--text2:#8b949e;--text3:#484f58;
+  --blue:#1f6feb;--blue-l:#388bfd;
+  --green-l:#3fb950;--amber-l:#d29922;--red-l:#f85149;
+  --teal-l:#22d3ee;--purple-l:#a78bfa;--orange-l:#fb923c;
+  --pink-l:#f472b6;--cyan-l:#67e8f9;--lime-l:#a3e635;
+  --r:12px;--rs:8px;--ff:'Cairo',sans-serif;
+}
+body.en{--ff:'Inter',sans-serif;}
+body{font-family:var(--ff);background:var(--bg);color:var(--text);min-height:100vh;direction:rtl;font-size:14px}
+body.en{direction:ltr}
+::-webkit-scrollbar{width:5px;height:5px}
+::-webkit-scrollbar-track{background:var(--bg)}
+::-webkit-scrollbar-thumb{background:var(--bg4);border-radius:3px}
+
+/* ── SIDEBAR ── */
+.sidebar{position:fixed;top:0;right:0;width:235px;height:100vh;background:var(--bg2);border-left:1px solid var(--border);display:flex;flex-direction:column;z-index:100;overflow-y:auto}
+body.en .sidebar{right:auto;left:0;border-left:none;border-right:1px solid var(--border)}
+.logo-wrap{padding:16px 14px 12px;border-bottom:1px solid var(--border)}
+.logo-top{display:flex;align-items:center;gap:9px;margin-bottom:5px}
+.logo-icon{width:34px;height:34px;border-radius:9px;background:linear-gradient(135deg,#1f6feb,#7c3aed);display:flex;align-items:center;justify-content:center;font-size:17px;flex-shrink:0}
+.logo-name{font-size:13px;font-weight:900;color:var(--text)}
+.logo-sub{font-size:10px;color:var(--text3);margin-top:2px}
+
+/* WAREHOUSE SWITCHER */
+.ws-wrap{padding:10px 10px 0}
+.ws-tabs{display:flex;background:var(--bg3);border-radius:9px;padding:3px;gap:2px}
+.ws-tab{flex:1;padding:5px 4px;border-radius:6px;font-size:10px;font-weight:700;text-align:center;cursor:pointer;color:var(--text3);transition:all .15s;border:none;background:transparent;font-family:var(--ff)}
+.ws-tab:hover{color:var(--text2)}
+.ws-tab.active-main{background:#1f6feb;color:#fff}
+.ws-tab.active-show{background:#7c3aed;color:#fff}
+.ws-tab.active-maint{background:#d29922;color:#1a1000}
+
+/* WAREHOUSE INDICATOR */
+.wi{display:flex;align-items:center;gap:7px;padding:8px 12px;margin:8px 10px 0;border-radius:var(--rs);font-size:11px;font-weight:700}
+.wi-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+
+.nav-sec{padding:12px 13px 4px;font-size:9px;font-weight:700;color:var(--text3);letter-spacing:1.2px;text-transform:uppercase}
+.nav-item{display:flex;align-items:center;gap:8px;padding:7px 12px;border-radius:var(--rs);margin:2px 6px;cursor:pointer;font-size:11.5px;color:var(--text2);border:1px solid transparent;text-decoration:none;transition:all .13s;font-family:var(--ff)}
+.nav-item:hover{background:var(--bg3);color:var(--text)}
+.nav-item.active{background:var(--bg3);color:var(--blue-l);border-color:var(--border2)}
+.nav-item.active-show-nav{color:#a78bfa;border-color:rgba(167,139,250,.3)}
+.nav-item.active-maint-nav{color:var(--amber-l);border-color:rgba(210,153,34,.3)}
+.ni{font-size:13px;flex-shrink:0;width:16px;text-align:center}
+.nbadge{margin-right:auto;font-size:9px;border-radius:20px;padding:1px 6px;font-weight:700}
+.cleg{width:7px;height:7px;border-radius:2px;flex-shrink:0}
+.sfooter{margin-top:auto;padding:12px;border-top:1px solid var(--border);font-size:10px;color:var(--text3)}
+.sdot{display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--green-l);margin-left:4px;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+
+/* ── MAIN ── */
+.main{margin-right:235px;min-height:100vh;display:flex;flex-direction:column}
+body.en .main{margin-right:0;margin-left:235px}
+.topbar{position:sticky;top:0;z-index:50;background:rgba(13,17,23,.92);backdrop-filter:blur(14px);border-bottom:1px solid var(--border);padding:11px 22px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.tb-title{font-size:14px;font-weight:800;color:var(--text)}
+.tb-meta{font-size:10.5px;color:var(--text2);margin-top:2px}
+.tb-right{display:flex;gap:7px;align-items:center}
+.btn{display:inline-flex;align-items:center;gap:5px;padding:6px 12px;border-radius:var(--rs);font-size:11px;font-weight:700;cursor:pointer;border:1px solid var(--border2);background:var(--bg3);color:var(--text);font-family:var(--ff);transition:all .13s}
+.btn:hover{background:var(--bg4);border-color:var(--blue)}
+.btn-p{background:var(--blue);border-color:var(--blue);color:#fff}
+.btn-p:hover{background:var(--blue-l);color:#fff}
+.lang-btn{display:flex;background:var(--bg3);border:1px solid var(--border2);border-radius:7px;overflow:hidden}
+.lang-opt{padding:5px 11px;font-size:11px;font-weight:700;cursor:pointer;color:var(--text2);font-family:var(--ff);border:none;background:transparent}
+.lang-opt.active{background:var(--blue);color:#fff}
+
+/* WAREHOUSE BANNER */
+.wh-banner{padding:10px 22px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:12px;font-size:12px}
+.wh-banner-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+.wh-banner-name{font-weight:800;font-size:13px}
+.wh-banner-stats{color:var(--text2);margin-right:auto}
+body.en .wh-banner-stats{margin-right:0;margin-left:auto}
+
+/* ── PAGES ── */
+.page{display:none;padding:20px;animation:fadeUp .25s ease}
+.page.active{display:block}
+@keyframes fadeUp{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+
+/* ── KPI ── */
+.kpi-row{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-bottom:18px}
+.kpi{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);padding:16px 14px;position:relative;overflow:hidden;transition:border-color .18s,transform .18s;cursor:default}
+.kpi::before{content:'';position:absolute;top:0;right:0;left:0;height:2px;background:var(--ka,var(--blue))}
+.kpi:hover{border-color:var(--border2);transform:translateY(-2px)}
+.kpi-lbl{font-size:9.5px;font-weight:700;color:var(--text2);letter-spacing:.5px;margin-bottom:7px}
+.kpi-val{font-size:24px;font-weight:900;color:var(--text);line-height:1}
+.kpi-sub{font-size:9.5px;color:var(--text3);margin-top:4px}
+.kpi-ch{font-size:9.5px;margin-top:4px;font-weight:700}
+.up{color:var(--green-l)}.dn{color:var(--red-l)}.wn{color:var(--amber-l)}
+
+/* ── GRIDS ── */
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px}
+.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin-bottom:16px}
+.g6535{display:grid;grid-template-columns:1.75fr 1fr;gap:16px;margin-bottom:16px}
+
+/* ── CARD ── */
+.card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);overflow:hidden}
+.ch{padding:12px 16px 10px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
+.ct{font-size:12px;font-weight:700;color:var(--text);display:flex;align-items:center;gap:7px}
+.ci{width:20px;height:20px;border-radius:5px;display:flex;align-items:center;justify-content:center;font-size:11px}
+.cb{padding:16px}
+.cf{padding:8px 16px;border-top:1px solid var(--border);font-size:10px;color:var(--text3)}
+
+/* ── TABS ── */
+.tabs{display:flex;gap:4px;flex-wrap:wrap;padding:10px 16px;border-bottom:1px solid var(--border)}
+.tab{padding:3px 10px;border-radius:20px;font-size:10.5px;font-weight:700;cursor:pointer;border:1px solid transparent;color:var(--text2);background:transparent;font-family:var(--ff);transition:all .12s}
+.tab:hover{background:var(--bg3);color:var(--text)}
+.tab.active{border-color:var(--tc,var(--blue));color:var(--tc,var(--blue-l));background:color-mix(in srgb,var(--tc,var(--blue)) 13%,transparent)}
+
+/* ── BARS ── */
+.blist{padding:12px 16px}
+.brow{display:flex;align-items:center;gap:8px;margin-bottom:7px}
+.bname{font-size:10.5px;color:var(--text2);min-width:145px;flex-shrink:0;text-align:right;line-height:1.3}
+body.en .bname{text-align:left}
+.btrack{flex:1;background:var(--bg3);border-radius:4px;height:20px;overflow:hidden}
+.bfill{height:100%;border-radius:4px;transition:width .75s cubic-bezier(.16,1,.3,1);min-width:2px}
+.bq{font-size:10.5px;font-weight:700;color:var(--text);min-width:28px;text-align:left}
+.bpct{font-size:9.5px;color:var(--text3);min-width:30px;text-align:left}
+.bv{font-size:9.5px;color:var(--amber-l);min-width:60px;text-align:left}
+
+/* ── DONUT ── */
+.dwrap{display:flex;align-items:center;gap:16px;padding:16px}
+.dcanv{position:relative;width:155px;height:155px;flex-shrink:0}
+.dctr{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;pointer-events:none}
+.dcv{font-size:16px;font-weight:900;color:var(--text)}
+.dcl{font-size:9px;color:var(--text3)}
+.dleg{flex:1}
+.dli{display:flex;align-items:center;gap:6px;margin-bottom:6px}
+.dld{width:8px;height:8px;border-radius:2px;flex-shrink:0}
+.dln{flex:1;font-size:10.5px;color:var(--text2)}
+.dlv{font-size:10.5px;font-weight:700;color:var(--text)}
+.dlp{font-size:9.5px;color:var(--text3);min-width:28px;text-align:left}
+
+/* ── TABLE ── */
+.tw{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:11px}
+thead tr{background:var(--bg3)}
+th{padding:8px 12px;text-align:right;font-size:9.5px;font-weight:700;color:var(--text2);letter-spacing:.4px;border-bottom:1px solid var(--border);white-space:nowrap;cursor:pointer;user-select:none;font-family:var(--ff)}
+body.en th{text-align:left}
+th:hover{color:var(--text)}
+td{padding:8px 12px;text-align:right;border-bottom:1px solid var(--border);color:var(--text2);transition:background .12s;font-family:var(--ff)}
+body.en td{text-align:left}
+tbody tr:hover td{background:var(--bg3);color:var(--text)}
+tbody tr:last-child td{border-bottom:none}
+.tmain{color:var(--text);font-weight:600;font-size:11px}
+.tmod{color:var(--text3);font-size:9.5px;font-family:monospace}
+.badge{display:inline-flex;align-items:center;padding:2px 8px;border-radius:20px;font-size:9.5px;font-weight:700;white-space:nowrap}
+.mbar{width:55px;height:4px;background:var(--bg4);border-radius:3px;overflow:hidden;display:inline-block;vertical-align:middle;margin-left:4px}
+.mfill{height:100%;border-radius:3px}
+
+/* ── ALERTS ── */
+.alert{border-radius:var(--rs);padding:10px 12px;margin-bottom:8px;border:1px solid;display:flex;gap:8px}
+.aico{font-size:15px;flex-shrink:0;margin-top:1px}
+.atit{font-size:11px;font-weight:700;margin-bottom:2px}
+.abod{font-size:10.5px;line-height:1.6}
+.a-d{background:rgba(248,81,73,.08);border-color:rgba(248,81,73,.27)}.a-d .atit{color:var(--red-l)}.a-d .abod{color:#f8877e}
+.a-w{background:rgba(210,153,34,.08);border-color:rgba(210,153,34,.27)}.a-w .atit{color:var(--amber-l)}.a-w .abod{color:#c9a75a}
+.a-s{background:rgba(63,185,80,.08);border-color:rgba(63,185,80,.27)}.a-s .atit{color:var(--green-l)}.a-s .abod{color:#6ee17f}
+.a-i{background:rgba(56,139,253,.08);border-color:rgba(56,139,253,.27)}.a-i .atit{color:var(--blue-l)}.a-i .abod{color:#79b8ff}
+
+/* ── PRIORITY ── */
+.prow{display:flex;align-items:center;gap:10px;padding:10px 16px;border-bottom:1px solid var(--border);transition:background .12s}
+.prow:last-child{border-bottom:none}
+.prow:hover{background:var(--bg3)}
+.prank{width:24px;height:24px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:900;flex-shrink:0}
+.pinfo{flex:1}
+.pname{font-size:11.5px;font-weight:700;color:var(--text)}
+.pdesc{font-size:10px;color:var(--text3);margin-top:1px}
+.pright{text-align:left;flex-shrink:0}
+body.en .pright{text-align:right}
+
+/* ── INSIGHTS ── */
+.igrid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.icard{background:var(--bg3);border:1px solid var(--border);border-radius:var(--rs);padding:12px;transition:border-color .18s}
+.icard:hover{border-color:var(--border2)}
+.iico{font-size:18px;margin-bottom:5px}
+.itit{font-size:11px;font-weight:700;color:var(--text);margin-bottom:2px}
+.ibod{font-size:10.5px;color:var(--text2);line-height:1.6}
+
+/* ── OVERVIEW COMPARE ── */
+.compare-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;margin-bottom:16px}
+.compare-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);padding:16px;position:relative;overflow:hidden}
+.compare-card::before{content:'';position:absolute;top:0;right:0;left:0;height:3px}
+.cc-main::before{background:var(--blue-l)}
+.cc-show::before{background:#a78bfa}
+.cc-maint::before{background:var(--amber-l)}
+.cc-label{font-size:10px;font-weight:700;color:var(--text2);margin-bottom:8px;display:flex;align-items:center;gap:6px}
+.cc-value{font-size:22px;font-weight:900;margin-bottom:4px}
+.cc-sub{font-size:10px;color:var(--text3)}
+
+.sh{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
+.stit{font-size:13.5px;font-weight:800;color:var(--text)}
+.ssub{font-size:10px;color:var(--text3);margin-top:2px}
+.sinput{padding:5px 11px;border-radius:var(--rs);border:1px solid var(--border2);background:var(--bg3);color:var(--text);font-family:var(--ff);font-size:11.5px;outline:none;direction:rtl;width:175px}
+body.en .sinput{direction:ltr}
+.sinput:focus{border-color:var(--blue)}
+.vg{color:var(--amber-l);font-weight:700}
+.cwrap{position:relative;padding:12px 16px 16px}
+.tl-item{display:flex;gap:9px;align-items:flex-start;margin-bottom:9px}
+.tl-tag{border-radius:5px;padding:2px 9px;font-size:9.5px;font-weight:700;white-space:nowrap;flex-shrink:0}
+
+@media(max-width:1100px){.kpi-row{grid-template-columns:repeat(3,1fr)}.g2,.g6535{grid-template-columns:1fr}.g3,.compare-grid{grid-template-columns:1fr}}
+@media(max-width:750px){.sidebar{transform:translateX(235px)}.main{margin-right:0!important;margin-left:0!important}.kpi-row{grid-template-columns:repeat(2,1fr)}.igrid{grid-template-columns:1fr}.bname{min-width:100px}}
+</style>
+</head>
+<body>
+
+<!-- ══ SIDEBAR ══ -->
+<aside class="sidebar">
+  <div class="logo-wrap">
+    <div class="logo-top">
+      <div class="logo-icon">🏬</div>
+      <div>
+        <div class="logo-name" data-ar="إبداع الحياة" data-en="Ibda Al-Haya">إبداع الحياة</div>
+        <div class="logo-sub" data-ar="نظام إدارة المخازن" data-en="Warehouse Management System">نظام إدارة المخازن</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- WAREHOUSE SWITCHER -->
+  <div class="ws-wrap">
+    <div class="ws-tabs">
+      <button class="ws-tab active-main" onclick="switchWH(&#39;main&#39;,this)" data-ar="الأساسي" data-en="Main">الأساسي</button>
+      <button class="ws-tab" onclick="switchWH(&#39;show&#39;,this)" data-ar="المعرض" data-en="Showroom">المعرض</button>
+      <button class="ws-tab" onclick="switchWH(&#39;maint&#39;,this)" data-ar="الصيانة" data-en="Maintenance">الصيانة</button>
+    </div>
+  </div>
+
+  <div class="wi" id="wiBar" style="background: color-mix(in srgb, rgb(56, 139, 253) 10%, transparent); color: rgb(56, 139, 253);">
+    <div class="wi-dot" style="background:#388bfd"></div>
+    <span id="wiName" data-ar="المخزن الأساسي" data-en="Main Warehouse">المخزن الأساسي</span>
+  </div>
+
+  <div class="nav-sec" data-ar="عام" data-en="GENERAL">عام</div>
+  <a class="nav-item active" onclick="showPage(&#39;overview&#39;,this)" href="file:///C:/Users/lenovo/Downloads/ibda-alhaya-v3.html#"><span class="ni">🌐</span><span data-ar="النظرة العامة" data-en="Overview">النظرة العامة</span></a>
+
+  <div class="nav-sec" id="navSecLabel" data-ar="المخزن الأساسي" data-en="MAIN WAREHOUSE">المخزن الأساسي</div>
+  <a class="nav-item" onclick="showPage(&#39;products&#39;,this)" href="file:///C:/Users/lenovo/Downloads/ibda-alhaya-v3.html#"><span class="ni">📦</span><span data-ar="المنتجات" data-en="Products">المنتجات</span></a>
+  <a class="nav-item" onclick="showPage(&#39;categories&#39;,this)" href="file:///C:/Users/lenovo/Downloads/ibda-alhaya-v3.html#"><span class="ni">🗂️</span><span data-ar="الفئات" data-en="Categories">الفئات</span></a>
+  <a class="nav-item" onclick="showPage(&#39;finance&#39;,this)" href="file:///C:/Users/lenovo/Downloads/ibda-alhaya-v3.html#"><span class="ni">💰</span><span data-ar="التحليل المالي" data-en="Financial">التحليل المالي</span></a>
+  <a class="nav-item" onclick="showPage(&#39;alerts&#39;,this)" href="file:///C:/Users/lenovo/Downloads/ibda-alhaya-v3.html#"><span class="ni">🔔</span><span data-ar="التنبيهات" data-en="Alerts">التنبيهات</span><span class="nbadge" id="alertBadge" style="background:var(--red-l);color:#fff">4</span></a>
+  <a class="nav-item" onclick="showPage(&#39;priorities&#39;,this)" href="file:///C:/Users/lenovo/Downloads/ibda-alhaya-v3.html#"><span class="ni">🎯</span><span data-ar="الأولويات" data-en="Priorities">الأولويات</span></a>
+
+  <div class="nav-sec" data-ar="الفئات السريعة" data-en="QUICK FILTER">الفئات السريعة</div>
+  <a class="nav-item" onclick="showPage(&#39;products&#39;,this);quickFilter(&#39;Snowa Gc&#39;)" href="file:///C:/Users/lenovo/Downloads/ibda-alhaya-v3.html#"><span class="cleg" style="background:#3fb950"></span><span>Snowa Gc</span></a>
+  <a class="nav-item" onclick="showPage(&#39;products&#39;,this);quickFilter(&#39;DAEWOO Ref&amp;Fr&#39;)" href="file:///C:/Users/lenovo/Downloads/ibda-alhaya-v3.html#"><span class="cleg" style="background:#22d3ee"></span><span>DAEWOO Ref&amp;Fr</span></a>
+  <a class="nav-item" onclick="showPage(&#39;products&#39;,this);quickFilter(&#39;Snowa WM&#39;)" href="file:///C:/Users/lenovo/Downloads/ibda-alhaya-v3.html#"><span class="cleg" style="background:#fb923c"></span><span>Snowa WM</span></a>
+  <a class="nav-item" onclick="showPage(&#39;products&#39;,this);quickFilter(&#39;Daewoo AC&#39;)" href="file:///C:/Users/lenovo/Downloads/ibda-alhaya-v3.html#"><span class="cleg" style="background:#d29922"></span><span>Daewoo AC</span></a>
+  <a class="nav-item" onclick="showPage(&#39;products&#39;,this);quickFilter(&#39;Daewoo TV&#39;)" href="file:///C:/Users/lenovo/Downloads/ibda-alhaya-v3.html#"><span class="cleg" style="background:#a78bfa"></span><span>Daewoo TV</span></a>
+
+  <div class="sfooter">
+    <span class="sdot"></span>
+    <span data-ar="3 مخازن · 16 يونيو 2026" data-en="3 Warehouses · June 16, 2026">3 مخازن · 16 يونيو 2026</span>
+  </div>
+</aside>
+
+<!-- ══ MAIN ══ -->
+<main class="main">
+  <header class="topbar">
+    <div>
+      <div class="tb-title" data-ar="لوحة تحكم مخازن شركة إبداع الحياة" data-en="Ibda Al-Haya — Warehouse Dashboard">لوحة تحكم مخازن شركة إبداع الحياة</div>
+      <div class="tb-meta" id="topMeta">المخزن الأساسي · 78 منتج · <span class="vg">$687,510</span></div>
+    </div>
+    <div class="tb-right">
+      <div class="lang-btn">
+        <button class="lang-opt active" onclick="setLang(&#39;ar&#39;,this)">عربي</button>
+        <button class="lang-opt" onclick="setLang(&#39;en&#39;,this)">EN</button>
+      </div>
+      <button class="btn" onclick="window.print()">🖨️</button>
+      <button class="btn btn-p" onclick="exportCSV()">⬇️ CSV</button>
+    </div>
+  </header>
+
+  <!-- WAREHOUSE BANNER -->
+  <div class="wh-banner" id="whBanner">
+    <div class="wh-banner-dot" id="whDot" style="background: rgb(56, 139, 253);"></div>
+    <div class="wh-banner-name" id="whName" style="color: rgb(56, 139, 253);" data-ar="المخزن الأساسي" data-en="Main Warehouse">المخزن الأساسي</div>
+    <div class="wh-banner-stats" id="whStats">78 منتج · 3,560 وحدة · <span class="vg">$687,510</span></div>
+  </div>
+
+  <!-- ══════════════════════════════════════
+       PAGE: OVERVIEW (ثابت — يشمل الثلاثة)
+  ══════════════════════════════════════ -->
+  <div class="page active" id="page-overview">
+    <div class="sh" style="margin-bottom:16px">
+      <div><div class="stit" data-ar="النظرة العامة — الثلاثة مخازن" data-en="Overview — All Three Warehouses">النظرة العامة — الثلاثة مخازن</div>
+      <div class="ssub" data-ar="مقارنة شاملة بين المخزن الأساسي والمعرض والصيانة" data-en="Comprehensive comparison between Main, Showroom, and Maintenance">مقارنة شاملة بين المخزن الأساسي والمعرض والصيانة</div></div>
+    </div>
+
+    <!-- 3-WAY COMPARE -->
+    <div class="compare-grid">
+      <div class="compare-card cc-main">
+        <div class="cc-label" style="color:#388bfd">🏭 <span data-ar="المخزن الأساسي" data-en="Main Warehouse">المخزن الأساسي</span></div>
+        <div class="cc-value" style="color:#388bfd">$687,510</div>
+        <div class="cc-sub" data-ar="78 منتج · 15 فئة · 3,560 وحدة" data-en="78 products · 15 categories · 3,560 units">78 منتج · 15 فئة · 3,560 وحدة</div>
+      </div>
+      <div class="compare-card cc-show">
+        <div class="cc-label" style="color:#a78bfa">🎪 <span data-ar="مخزن المعرض" data-en="Showroom Warehouse">مخزن المعرض</span></div>
+        <div class="cc-value" style="color:#a78bfa">$71,984</div>
+        <div class="cc-sub" data-ar="53 منتج · 14 فئة · 374 وحدة" data-en="53 products · 14 categories · 374 units">53 منتج · 14 فئة · 374 وحدة</div>
+      </div>
+      <div class="compare-card cc-maint">
+        <div class="cc-label" style="color:#d29922">🔧 <span data-ar="مخزن الصيانة" data-en="Maintenance Warehouse">مخزن الصيانة</span></div>
+        <div class="cc-value" style="color:#d29922">$44,382</div>
+        <div class="cc-sub" data-ar="11 منتج · 6 فئات · 12 وحدة" data-en="11 products · 6 categories · 12 units">11 منتج · 6 فئات · 12 وحدة</div>
+      </div>
+    </div>
+
+    <!-- TOTAL KPIs -->
+    <div class="kpi-row" style="grid-template-columns:repeat(4,1fr)">
+      <div class="kpi" style="--ka:#d29922">
+        <div class="kpi-lbl" data-ar="إجمالي القيمة الكلية" data-en="TOTAL ALL VALUE">إجمالي القيمة الكلية</div>
+        <div class="kpi-val" style="color:#d29922;font-size:20px">$803,876</div>
+        <div class="kpi-sub" data-ar="مجموع الثلاثة مخازن" data-en="sum of all three warehouses">مجموع الثلاثة مخازن</div>
+      </div>
+      <div class="kpi" style="--ka:#388bfd">
+        <div class="kpi-lbl" data-ar="إجمالي المنتجات" data-en="TOTAL PRODUCTS">إجمالي المنتجات</div>
+        <div class="kpi-val">142</div>
+        <div class="kpi-sub" data-ar="78 + 53 + 11 منتج" data-en="78 + 53 + 11 products">78 + 53 + 11 منتج</div>
+      </div>
+      <div class="kpi" style="--ka:#3fb950">
+        <div class="kpi-lbl" data-ar="إجمالي الوحدات" data-en="TOTAL UNITS">إجمالي الوحدات</div>
+        <div class="kpi-val">3,946</div>
+        <div class="kpi-sub" data-ar="3,560 + 374 + 12 وحدة" data-en="3,560 + 374 + 12 units">3,560 + 374 + 12 وحدة</div>
+      </div>
+      <div class="kpi" style="--ka:#388bfd">
+        <div class="kpi-lbl" data-ar="حصة المخزن الأساسي" data-en="MAIN WAREHOUSE SHARE">حصة المخزن الأساسي</div>
+        <div class="kpi-val" style="color:#388bfd">85.5%</div>
+        <div class="kpi-sub" data-ar="من إجمالي قيمة المخازن" data-en="of total warehouses value">من إجمالي قيمة المخازن</div>
+      </div>
+    </div>
+
+    <!-- COMPARE CHARTS -->
+    <div class="g2">
+      <div class="card">
+        <div class="ch"><div class="ct"><div class="ci" style="background:rgba(56,139,253,.15);color:#388bfd">📊</div><span data-ar="مقارنة القيم المالية" data-en="Financial Values Comparison">مقارنة القيم المالية</span></div></div>
+        <div class="cwrap" style="height:220px"><canvas id="cCompareVal" width="733" height="240" style="display: block; box-sizing: border-box; height: 192px; width: 586px;"></canvas></div>
+      </div>
+      <div class="card">
+        <div class="ch"><div class="ct"><div class="ci" style="background:rgba(63,185,80,.15);color:#3fb950">📦</div><span data-ar="مقارنة عدد المنتجات" data-en="Products Count Comparison">مقارنة عدد المنتجات</span></div></div>
+        <div class="cwrap" style="height:220px"><canvas id="cCompareQty" width="733" height="240" style="display: block; box-sizing: border-box; height: 192px; width: 586px;"></canvas></div>
+      </div>
+    </div>
+
+    <!-- TOP PER WAREHOUSE -->
+    <div class="g3">
+      <div class="card">
+        <div class="ch"><div class="ct" style="color:#388bfd">🏭 <span data-ar="أبرز منتجات المخزن الأساسي" data-en="Main Warehouse Highlights">أبرز منتجات المخزن الأساسي</span></div></div>
+        <div class="cb" style="padding:12px">
+          <div class="alert a-s"><div class="aico">🏆</div><div><div class="atit">VALENTINO 5 عيون استيل</div><div class="abod">470 وحدة × $353 = <strong>$166K</strong></div></div></div>
+          <div class="alert a-i"><div class="aico">🫖</div><div><div class="atit" data-ar="صانع الشاي — الأعلى عدداً" data-en="Tea Maker — Most Units">صانع الشاي — الأعلى عدداً</div><div class="abod">500 وحدة × $13.74</div></div></div>
+          <div class="alert a-i"><div class="aico">🍳</div><div><div class="atit">ROMINA 5 عيون استيل</div><div class="abod">274 وحدة × $259 = $71K</div></div></div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="ch"><div class="ct" style="color:#a78bfa">🎪 <span data-ar="أبرز منتجات المعرض" data-en="Showroom Highlights">أبرز منتجات المعرض</span></div></div>
+        <div class="cb" style="padding:12px">
+          <div class="alert" style="background:rgba(167,139,250,.08);border-color:rgba(167,139,250,.27)"><div class="aico">📺</div><div><div class="atit" style="color:#a78bfa">DAEWOO QLED 55 بوصة</div><div class="abod">223 وحدة × $206 = <strong>$45.9K</strong></div></div></div>
+          <div class="alert" style="background:rgba(167,139,250,.08);border-color:rgba(167,139,250,.27)"><div class="aico">🧺</div><div><div class="atit" style="color:#a78bfa">KARIZMA Tecnogaz 8kg</div><div class="abod">28 وحدة × $250 = $7K</div></div></div>
+          <div class="alert" style="background:rgba(167,139,250,.08);border-color:rgba(167,139,250,.27)"><div class="aico">🍳</div><div><div class="atit" style="color:#a78bfa">Snowa Gc — 10 طرازات</div><div class="abod">$2,334 إجمالي قيمة</div></div></div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="ch"><div class="ct" style="color:#d29922">🔧 <span data-ar="أبرز منتجات الصيانة" data-en="Maintenance Highlights">أبرز منتجات الصيانة</span></div></div>
+        <div class="cb" style="padding:12px">
+          <div class="alert a-w"><div class="aico">❄️</div><div><div class="atit">سبالت إنفرتر تحكم طن و نص</div><div class="abod">1 وحدة × $440 = <strong>$440</strong></div></div></div>
+          <div class="alert a-w"><div class="aico">📺</div><div><div class="atit">DAEWOO QLED 55 بوصة</div><div class="abod">200 وحدة × $206 = <strong>$41.2K</strong></div></div></div>
+          <div class="alert a-w"><div class="aico">🧊</div><div><div class="atit" data-ar="ثلاجة BOST 14 قدم" data-en="BOST 14ft Refrigerator">ثلاجة BOST 14 قدم</div><div class="abod">1 وحدة × $264</div></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════
+       PAGE: PRODUCTS (ديناميكي حسب المخزن)
+  ══════════════════════════════════════ -->
+  <div class="page" id="page-products">
+    <div class="sh">
+      <div><div class="stit" id="prodTitle" data-ar="المنتجات — المخزن الأساسي" data-en="Products — Main Warehouse">المنتجات — المخزن الأساسي</div><div class="ssub" id="prodSub">78 منتج مع الأسعار والكميات والمجاميع</div></div>
+      <input class="sinput" id="srch" type="text" placeholder="🔍 بحث..." onkeyup="renderTable()">
+    </div>
+    <div class="card">
+      <div class="tabs" id="pTabs"><button class="tab active" onclick="filterProducts(&#39;all&#39;,this)" style="--tc:#388bfd">الكل (78)</button><button class="tab" onclick="filterProducts(&#39;Snowa TM&#39;,this)" style="--tc:#67e8f9">Snowa TM</button><button class="tab" onclick="filterProducts(&#39;Snowa Gc&#39;,this)" style="--tc:#3fb950">Snowa Gc</button><button class="tab" onclick="filterProducts(&#39;Snowa CHP&#39;,this)" style="--tc:#388bfd">Snowa CHP</button><button class="tab" onclick="filterProducts(&#39;Snowa SDA&#39;,this)" style="--tc:#a78bfa">Snowa SDA</button><button class="tab" onclick="filterProducts(&#39;Snowa VC&#39;,this)" style="--tc:#f472b6">Snowa VC</button><button class="tab" onclick="filterProducts(&#39;Daewoo AC&#39;,this)" style="--tc:#d29922">Daewoo AC</button><button class="tab" onclick="filterProducts(&#39;DAEWOO Ref&amp;Fr&#39;,this)" style="--tc:#0ea5e9">DAEWOO Ref&amp;Fr</button><button class="tab" onclick="filterProducts(&#39;Snowa WM&#39;,this)" style="--tc:#fb923c">Snowa WM</button><button class="tab" onclick="filterProducts(&#39;Daewoo TV&#39;,this)" style="--tc:#7c3aed">Daewoo TV</button><button class="tab" onclick="filterProducts(&#39;Snowa Ref&amp;Fr&#39;,this)" style="--tc:#22d3ee">Snowa Ref&amp;Fr</button><button class="tab" onclick="filterProducts(&#39;Daewoo WM&#39;,this)" style="--tc:#e879f9">Daewoo WM</button><button class="tab" onclick="filterProducts(&#39;Tecnogaz WM&#39;,this)" style="--tc:#f97316">Tecnogaz WM</button><button class="tab" onclick="filterProducts(&#39;Tecnogas GC&#39;,this)" style="--tc:#84cc16">Tecnogas GC</button><button class="tab" onclick="filterProducts(&#39;Snowa TV&#39;,this)" style="--tc:#a3e635">Snowa TV</button><button class="tab" onclick="filterProducts(&#39;DAEWOO DW&#39;,this)" style="--tc:#f43f5e">DAEWOO DW</button></div>
+      <div class="tw">
+        <table>
+          <thead><tr>
+            <th onclick="tSort(&#39;id&#39;)">#</th>
+            <th onclick="tSort(&#39;name&#39;)" data-ar="اسم المنتج ↕" data-en="Product ↕">اسم المنتج ↕</th>
+            <th data-ar="الموديل" data-en="Model">الموديل</th>
+            <th onclick="tSort(&#39;cat&#39;)" data-ar="الفئة ↕" data-en="Category ↕">الفئة ↕</th>
+            <th onclick="tSort(&#39;price&#39;)" data-ar="السعر $ ↕" data-en="Price $ ↕">السعر $ ↕</th>
+            <th onclick="tSort(&#39;qty&#39;)" data-ar="الكمية ↕" data-en="Qty ↕">الكمية ↕</th>
+            <th onclick="tSort(&#39;total&#39;)" data-ar="الإجمالي $ ↕" data-en="Total $ ↕">الإجمالي $ ↕</th>
+            <th data-ar="المستوى" data-en="Level">المستوى</th>
+            <th data-ar="الحالة" data-en="Status">الحالة</th>
+          </tr></thead>
+          <tbody id="pBody"><tr>
+   <td style="color:var(--text3)">1</td>
+   <td><span class="tmain">صانع الشاي TEA MAKER SNOWA</span><br><span class="tmod">SS-TM1891GB</span></td>
+   <td><span class="tmod">SS-TM1891GB</span></td>
+   <td><span class="badge" style="background:#67e8f918;color:#67e8f9">Snowa TM</span></td>
+   <td><span class="vg">$13.74</span></td>
+   <td><strong style="color:#67e8f9">500</strong></td>
+   <td><span class="vg">$6,870</span></td>
+   <td><div class="mbar"><div class="mfill" style="width:100%;background:#67e8f9"></div></div>100%</td>
+   <td><span class="badge" style="background:rgba(63,185,80,.12);color:#3fb950">وفير</span></td>
+  </tr><tr>
+   <td style="color:var(--text3)">2</td>
+   <td><span class="tmain">طباخ VALENTINO عيون5 استيل</span><br><span class="tmod">SGC5-VEQ41</span></td>
+   <td><span class="tmod">SGC5-VEQ41</span></td>
+   <td><span class="badge" style="background:#3fb95018;color:#3fb950">Snowa Gc</span></td>
+   <td><span class="vg">$353.73</span></td>
+   <td><strong style="color:#3fb950">470</strong></td>
+   <td><span class="vg">$166,253</span></td>
+   <td><div class="mbar"><div class="mfill" style="width:94%;background:#3fb950"></div></div>94%</td>
+   <td><span class="badge" style="background:rgba(63,185,80,.12);color:#3fb950">وفير</span></td>
+  </tr><tr>
+   <td style="color:var(--text3)">3</td>
+   <td><span class="tmain">محضرة طعام CHOOPER Snowa</span><br><span class="tmod">SS-C591B</span></td>
+   <td><span class="tmod">SS-C591B</span></td>
+   <td><span class="badge" style="background:#388bfd18;color:#388bfd">Snowa CHP</span></td>
+   <td><span class="vg">$11.74</span></td>
+   <td><strong style="color:#388bfd">378</strong></td>
+   <td><span class="vg">$4,437</span></td>
+   <td><div class="mbar"><div class="mfill" style="width:76%;background:#388bfd"></div></div>76%</td>
+   <td><span class="badge" style="background:rgba(63,185,80,.12);color:#3fb950">وفير</span></td>
+  </tr><tr>
+   <td style="color:var(--text3)">4</td>
+   <td><span class="tmain">طباخ ROMINA عيون5 استيل</span><br><span class="tmod">SGC5-REQ11</span></td>
+   <td><span class="tmod">SGC5-REQ11</span></td>
+   <td><span class="badge" style="background:#3fb95018;color:#3fb950">Snowa Gc</span></td>
+   <td><span class="vg">$259.77</span></td>
+   <td><strong style="color:#3fb950">274</strong></td>
+   <td><span class="vg">$71,177</span></td>
+   <td><div class="mbar"><div class="mfill" style="width:55%;background:#3fb950"></div></div>55%</td>
+   <td><span class="badge" style="background:rgba(63,185,80,.12);color:#3fb950">وفير</span></td>
+  </tr><tr>
+   <td style="color:var(--text3)">5</td>
+   <td><span class="tmain">طباخ ROMINA عيون5 بيجي</span><br><span class="tmod">SGC5-REQ51</span></td>
+   <td><span class="tmod">SGC5-REQ51</span></td>
+   <td><span class="badge" style="background:#3fb95018;color:#3fb950">Snowa Gc</span></td>
+   <td><span class="vg">$346.00</span></td>
+   <td><strong style="color:#3fb950">163</strong></td>
+   <td><span class="vg">$56,398</span></td>
+   <td><div class="mbar"><div class="mfill" style="width:33%;background:#3fb950"></div></div>33%</td>
+   <td><span class="badge" style="background:rgba(210,153,34,.12);color:#d29922">جيد</span></td>
+  </tr><tr>
+   <td style="color:var(--text3)">6</td>
+   <td><span class="tmain">خلاط يدوي SNOWA اسود</span><br><span class="tmod">SS-H1091AB</span></td>
+   <td><span class="tmod">SS-H1091AB</span></td>
+   <td><span class="badge" style="background:#a78bfa18;color:#a78bfa">Snowa SDA</span></td>
+   <td><span class="vg">$22.89</span></td>
+   <td><strong style="color:#a78bfa">156</strong></td>
+   <td><span class="vg">$3,571</span></td>
+   <td><div class="mbar"><div class="mfill" style="width:31%;background:#a78bfa"></div></div>31%</td>
+   <td><span class="badge" style="background:rgba(210,153,34,.12);color:#d29922">جيد</span></td>
+  </tr><tr>
+   <td style="color:var(--text3)">7</td>
+   <td><span class="tmain">طباخ منضدي عيون5 SNOWA SH102</span><br><span class="tmod">SHB5-102</span></td>
+   <td><span class="tmod">SHB5-102</span></td>
+   <td><span class="badge" style="background:#3fb95018;color:#3fb950">Snowa Gc</span></td>
+   <td><span class="vg">$85.00</span></td>
+   <td><strong style="color:#3fb950">153</strong></td>
+   <td><span class="vg">$13,005</span></td>
+   <td><div class="mbar"><div class="mfill" style="width:31%;background:#3fb950"></div></div>31%</td>
+   <td><span class="badge" style="background:rgba(210,153,34,.12);color:#d29922">جيد</span></td>
+  </tr><tr>
+   <td style="color:var(--text3)">8</td>
+   <td><span class="tmain">طباخ VALENTINO عيون5 بيجي</span><br><span class="tmod">SGC5-VEQ45</span></td>
+   <td><span class="tmod">SGC5-VEQ45</span></td>
+   <td><span class="badge" style="background:#3fb95018;color:#3fb950">Snowa Gc</span></td>
+   <td><span class="vg">$310.00</span></td>
+   <td><strong style="color:#3fb950">123</strong></td>
+   <td><span class="vg">$38,130</span></td>
+   <td><div class="mbar"><div class="mfill" style="width:25%;background:#3fb950"></div></div>25%</td>
+   <td><span class="badge" style="background:rgba(210,153,34,.12);color:#d29922">جيد</span></td>
+  </tr><tr>
+   <td style="color:var(--text3)">9</td>
+   <td><span class="tmain">مكنسة SNOWA ازرق</span><br><span class="tmod">SVC-L21991BB</span></td>
+   <td><span class="tmod">SVC-L21991BB</span></td>
+   <td><span class="badge" style="background:#f472b618;color:#f472b6">Snowa VC</span></td>
+   <td><span class="vg">$43.34</span></td>
+   <td><strong style="color:#f472b6">120</strong></td>
+   <td><span class="vg">$5,201</span></td>
+   <td><div class="mbar"><div class="mfill" style="width:24%;background:#f472b6"></div></div>24%</td>
+   <td><span class="badge" style="background:rgba(210,153,34,.12);color:#d29922">جيد</span></td>
+  </tr><tr>
+   <td style="color:var(--text3)">10</td>
+   <td><span class="tmain">طباخ VALENTINO عيون5 اسود</span><br><span class="tmod">SGC5-VEQ43</span></td>
+   <td><span class="tmod">SGC5-VEQ43</span></td>
+   <td><span class="badge" style="background:#3fb95018;color:#3fb950">Snowa Gc</span></td>
+   <td><span class="vg">$323.00</span></td>
+   <td><strong style="color:#3fb950">119</strong></td>
+   <td><span class="vg">$38,437</span></td>
+   <td><div class="mbar"><div class="mfill" style="width:24%;background:#3fb950"></div></div>24%</td>
+   <td><span class="badge" style="background:rgba(210,153,34,.12);color:#d29922">جيد</span></td>
+  </tr><tr>
+   <td style="color:var(--text3)">11</td>
+   <td><span class="tmain">سبالت عادي حار وبارد طن Daew…</span><br><span class="tmod">DAC-1200CH</span></td>
+   <td><span class="tmod">DAC-1200CH</span></td>
+   <td><span class="badge" style="background:#d2992218;color:#d29922">Daewoo AC</span></td>
+   <td><span class="vg">$236.00</span></td>
+   <td><strong style="color:#d29922">113</strong></td>
+   <td><span class="vg">$26,668</span></td>
+   <td><div class="mbar"><div class="mfill" style="width:23%;background:#d29922"></div></div>23%</td>
+   <td><span class="badge" style="background:rgba(210,153,34,.12);color:#d29922">جيد</span></td>
+  </tr><tr>
+   <td style="color:var(--text3)">12</td>
+   <td><span class="tmain">طباخ منضدي عيون5 SNOWA SH101</span><br><span class="tmod">SHB5-101</span></td>
+   <td><span class="tmod">SHB5-101</span></td>
+   <td><span class="badge" style="background:#3fb95018;color:#3fb950">Snowa Gc</span></td>
+   <td><span class="vg">$85.00</span></td>
+   <td><strong style="color:#3fb950">70</strong></td>
+   <td><span class="vg">$5,950</span></td>
+   <td><div class="mbar"><div class="mfill" style="width:14%;background:#3fb950"></div></div>14%</td>
+   <td><span class="badge" style="background:rgba(210,153,34,.12);color:#d29922">جيد</span></td>
+  </tr><tr>
+   <td style="color:var(--text3)">13</td>
+   <td><span class="tmain">مجمدة 10قدم ابيض DAEWOO</span><br><span class="tmod">DR-C3040WH</span></td>
+   <td><span class="tmod">DR-C3040WH</span></td>
+   <td><span class="badge" style="background:#0ea5e918;color:#0ea5e9">DAEWOO Ref&amp;Fr</span></td>
+   <td><span class="vg">$156.00</span></td>
+   <td><strong style="color:#0ea5e9">68</strong></td>
+   <td><span class="vg">$10,608</span></td>
+   <td><div class="mbar"><div class="mfill" style="width:14%;background:#0ea5e9"></div></div>14%</td>
+   <td><span class="badge" style="background:rgba(210,153,34,.12);color:#d29922">جيد</span></td>
+  </tr><tr>
+   <td style="color:var(--text3)">14</td>
+   <td><span class="tmain">طباخ ROMINA عيون5 ابيض</span><br><span class="tmod">SGC5-REQ21</span></td>
+   <td><span class="tmod">SGC5-REQ21</span></td>
+   <td><span class="badge" style="background:#3fb95018;color:#3fb950">Snowa Gc</span></td>
+   <td><span class="vg">$320.00</span></td>
+   <td><strong style="color:#3fb950">63</strong></td>
+   <td><span class="vg">$20,160</span></td>
+   <td><div class="mbar"><div class="mfill" style="width:13%;background:#3fb950"></div></div>13%</td>
+   <td><span class="badge" style="background:rgba(210,153,34,.12);color:#d29922">جيد</span></td>
+  </tr><tr>
+   <td style="color:var(--text3)">15</td>
+   <td><span class="tmain">غسالة باب جانبي 7كيلو SNOWA …</span><br><span class="tmod">SW-F0792SI</span></td>
+   <td><span class="tmod">SW-F0792SI</span></td>
+   <td><span class="badge" style="background:#fb923c18;color:#fb923c">Snowa WM</span></td>
+   <td><span class="vg">$160.00</span></td>
+   <td><strong style="color:#fb923c">60</strong></td>
+   <td><span class="vg">$9,600</span></td>
+   <td><div class="mbar"><div class="mfill" style="width:12%;background:#fb923c"></div></div>12%</td>
+   <td><span class="badge" style="background:rgba(210,153,34,.12);color:#d29922">جيد</span></td>
+  </tr><tr>
+   <td style="color:var(--text3)">16</td>
+   <td><span class="tmain">غسالة باب جانبي 7كيلو SNOWA …</span><br><span class="tmod">SW-F0792WH</span></td>
+   <td><span class="tmod">SW-F0792WH</span></td>
+   <td><span class="badge" style="background:#fb923c18;color:#fb923c">Snowa WM</span></td>
+   <td><span class="vg">$160.00</span></td>
+   <td><strong style="color:#fb923c">59</strong></td>
+   <td><span class="vg">$9,440</span></td>
+   <td><div class="mbar"><div class="mfill" style="width:12%;background:#fb923c"></div></div>12%</td>
+   <td><span class="badge" style="background:rgba(210,153,34,.12);color:#d29922">جيد</span></td>
+  </tr><tr>
+   <td style="color:var(--text3)">17</td>
+   <td><span class="tmain">طباخ منضدي عيون5 SNOWA SH100</span><br><span class="tmod">SHB5-100</span></td>
+   <td><span class="tmod">SHB5-100</span></td>
+   <td><span class="badge" style="background:#3fb95018;color:#3fb950">Snowa Gc</span></td>
+   <td><span class="vg">$95.00</span></td>
+   <td><strong style="color:#3fb950">57</strong></td>
+   <td><span class="vg">$5,415</span></td>
+   <td><div class="mbar"><div class="mfill" style="width:11%;background:#3fb950"></div></div>11%</td>
+   <td><span class="badge" style="background:rgba(210,153,34,.12);color:#d29922">جيد</span></td>
+  </tr><tr>
+   <td style="color:var(--text3)">18</td>
+   <td><span class="tmain">سبالت إنفرتر حار وبارد طن Da…</span><br><span class="tmod">DAC-1200ICH</span></td>
+   <td><span class="tmod">DAC-1200ICH</span></td>
+   <td><span class="badge" style="background:#d2992218;color:#d29922">Daewoo AC</span></td>
+   <td><span class="vg">$255.00</span></td>
+   <td><strong style="color:#d29922">47</strong></td>
+   <td><span class="vg">$11,985</span></td>
+   <td><div class="mbar"><div class="mfill" style="width:9%;background:#d29922"></div></div>9%</td>
+   <td><span class="badge" style="background:rgba(56,139,253,.12);color:#388bfd">متوسط</span></td>
+  </tr><tr>
+   <td style="color:var(--text3)">19</td>
+   <td><span class="tmain">ثلاجة 20قدم سيلفر DAEWOO</span><br><span class="tmod">DR-T6891SS</span></td>
+   <td><span class="tmod">DR-T6891SS</span></td>
+   <td><span class="badge" style="background:#0ea5e918;color:#0ea5e9">DAEWOO Ref&amp;Fr</span></td>
+   <td><span class="vg">$349.00</span></td>
+   <td><strong style="color:#0ea5e9">42</strong></td>
+   <td><span class="vg">$14,658</span></td>
+   <td><div class="mbar"><div class="mfill" style="width:8%;background:#0ea5e9"></div></div>8%</td>
+   <td><span class="badge" style="background:rgba(56,139,253,.12);color:#388bfd">متوسط</span></td>
+  </tr><tr>
+   <td style="color:var(--text3)">20</td>
+   <td><span class="tmain">تلفزيون 55 DAEWOO QLED</span><br><span class="tmod">DT-Q5581CN</span></td>
+   <td><span class="tmod">DT-Q5581CN</span></td>
+   <td><span class="badge" style="background:#7c3aed18;color:#7c3aed">Daewoo TV</span></td>
+   <td><span class="vg">$206.00</span></td>
+   <td><strong style="color:#7c3aed">41</strong></td>
+   <td><span class="vg">$8,446</span></td>
+   <td><div class="mbar"><div class="mfill" style="width:8%;background:#7c3aed"></div></div>8%</td>
+   <td><span class="badge" style="background:rgba(56,139,253,.12);color:#388bfd">متوسط</span></td>
+  </tr><tr>
+   <td style="color:var(--text3)">21</td>
+   <td><span class="tmain">ثلاجة 17قدم رمادي DAEWOO</span><br><span class="tmod">DR-T5041DI</span></td>
+   <td><span class="tmod">DR-T5041DI</span></td>
+   <td><span class="badge" style="background:#0ea5e918;color:#0ea5e9">DAEWOO Ref&amp;Fr</span></td>
+   <td><span class="vg">$300.40</span></td>
+   <td><strong style="color:#0ea5e9">40</strong></td>
+   <td><span class="vg">$12,016</span></td>
+   <td><div class="mbar"><div class="mfill" style="width:8%;background:#0ea5e9"></div></div>8%</td>
+   <td><span class="badge" style="background:rgba(56,139,253,.12);color:#388bfd">متوسط</span></td>
+  </tr><tr>
+   <td style="color:var(--text3)">22</td>
+   <td><span class="tmain">غسالة 9كيلو سيلفر OCTA PLUS</span><br><span class="tmod">SDW-96SS</span></td>
+   <td><span class="tmod">SDW-96SS</span></td>
+   <td><span class="badge" style="background:#fb923c18;color:#fb923c">Snowa WM</span></td>
+   <td><span class="vg">$297.66</span></td>
+   <td><strong style="color:#fb923c">37</strong></td>
+   <td><span class="vg">$11,013</span></td>
+   <td><div class="mbar"><div class="mfill" style="width:7%;background:#fb923c"></div></div>7%</td>
+   <td><span class="badge" style="background:rgba(56,139,253,.12);color:#388bfd">متوسط</span></td>
+  </tr><tr>
+   <td style="color:var(--text3)">23</td>
+   <td><span class="tmain">ثلاجة TWIN ابيض SNOWA</span><br><span class="tmod">ER1800-GW</span></td>
+   <td><span class="tmod">ER1800-GW</span></td>
+   <td><span class="badge" style="background:#22d3ee18;color:#22d3ee">Snowa Ref&amp;Fr</span></td>
+   <td><span class="vg">$368.58</span></td>
+   <td><strong style="color:#22d3ee">27</strong></td>
+   <td><span class="vg">$9,952</span></td>
+   <td><div class="mbar"><div class="mfill" style="width:5%;background:#22d3ee"></div></div>5%</td>
+   <td><span class="badge" style="background:rgba(56,139,253,.12);color:#388bfd">متوسط</span></td>
+  </tr><tr>
+   <td style="color:var(--text3)">24</td>
+   <td><span class="tmain">ثلاجة TWIN سيلفر SNOWA</span><br><span class="tmod">ER1800-SS</span></td>
+   <td><span class="tmod">ER1800-SS</span></td>
+   <td><span class="badge" style="background:#22d3ee18;color:#22d3ee">Snowa Ref&amp;Fr</span></td>
+   <td><span class="vg">$427.00</span></td>
+   <td><strong style="color:#22d3ee">26</strong></td>
+   <td><span class="vg">$11,102</span></td>
+   <td><div class="mbar"><div class="mfill" style="width:5%;background:#22d3ee"></div></div>5%</td>
+   <td><span class="badge" style="background:rgba(56,139,253,.12);color:#388bfd">متوسط</span></td>
+  </tr><tr>
+   <td style="color:var(--text3)">25</td>
+   <td><span class="tmain">غسالة باب جانبي 7كيلو Daewoo…</span><br><span class="tmod">DW-F0792SI</span></td>
+   <td><span class="tmod">DW-F0792SI</span></td>
+   <td><span class="badge" style="background:#e879f918;color:#e879f9">Daewoo WM</span></td>
+   <td><span class="vg">$130.00</span></td>
+   <td><strong style="color:#e879f9">26</strong></td>
+   <td><span class="vg">$3,380</span></td>
+   <td><div class="mbar"><div class="mfill" style="width:5%;background:#e879f9"></div></div>5%</td>
+   <td><span class="badge" style="background:rgba(56,139,253,.12);color:#388bfd">متوسط</span></td>
+  </tr><tr>
+   <td style="color:var(--text3)">26</td>
+   <td><span class="tmain">غسالة 9كيلو ابيض OCTA PLUS</span><br><span class="tmod">SDW-96GW</span></td>
+   <td><span class="tmod">SDW-96GW</span></td>
+   <td><span class="badge" style="background:#fb923c18;color:#fb923c">Snowa WM</span></td>
+   <td><span class="vg">$330.00</span></td>
+   <td><strong style="color:#fb923c">21</strong></td>
+   <td><span class="vg">$6,930</span></td>
+   <td><div class="mbar"><div class="mfill" style="width:4%;background:#fb923c"></div></div>4%</td>
+   <td><span class="badge" style="background:rgba(56,139,253,.12);color:#388bfd">متوسط</span></td>
+  </tr><tr>
+   <td style="color:var(--text3)">27</td>
+   <td><span class="tmain">غسالة Harmony 9كيلو TECNOGAZ…</span><br><span class="tmod">WMFL914W2N</span></td>
+   <td><span class="tmod">WMFL914W2N</span></td>
+   <td><span class="badge" style="background:#f9731618;color:#f97316">Tecnogaz WM</span></td>
+   <td><span class="vg">$286.56</span></td>
+   <td><strong style="color:#f97316">21</strong></td>
+   <td><span class="vg">$6,018</span></td>
+   <td><div class="mbar"><div class="mfill" style="width:4%;background:#f97316"></div></div>4%</td>
+   <td><span class="badge" style="background:rgba(56,139,253,.12);color:#388bfd">متوسط</span></td>
+  </tr><tr>
+   <td style="color:var(--text3)">28</td>
+   <td><span class="tmain">غسالة Harmony 8كيلو TECNOGAZ…</span><br><span class="tmod">WMFL812W2N</span></td>
+   <td><span class="tmod">WMFL812W2N</span></td>
+   <td><span class="badge" style="background:#f9731618;color:#f97316">Tecnogaz WM</span></td>
+   <td><span class="vg">$250.12</span></td>
+   <td><strong style="color:#f97316">21</strong></td>
+   <td><span class="vg">$5,253</span></td>
+   <td><div class="mbar"><div class="mfill" style="width:4%;background:#f97316"></div></div>4%</td>
+   <td><span class="badge" style="background:rgba(56,139,253,.12);color:#388bfd">متوسط</span></td>
+  </tr><tr>
+   <td style="color:var(--text3)">29</td>
+   <td><span class="tmain">مجمدة تون 30قدم تيتانيوم DAE…</span><br><span class="tmod">DR-U3391T</span></td>
+   <td><span class="tmod">DR-U3391T</span></td>
+   <td><span class="badge" style="background:#0ea5e918;color:#0ea5e9">DAEWOO Ref&amp;Fr</span></td>
+   <td><span class="vg">$226.39</span></td>
+   <td><strong style="color:#0ea5e9">18</strong></td>
+   <td><span class="vg">$4,075</span></td>
+   <td><div class="mbar"><div class="mfill" style="width:4%;background:#0ea5e9"></div></div>4%</td>
+   <td><span class="badge" style="background:rgba(56,139,253,.12);color:#388bfd">متوسط</span></td>
+  </tr><tr>
+   <td style="color:var(--text3)">30</td>
+   <td><span class="tmain">ثلاجة تون 30قدم تيتانيوم DAE…</span><br><span class="tmod">DR-O4491T</span></td>
+   <td><span class="tmod">DR-O4491T</span></td>
+   <td><span class="badge" style="background:#0ea5e918;color:#0ea5e9">DAEWOO Ref&amp;Fr</span></td>
+   <td><span class="vg">$224.39</span></td>
+   <td><strong style="color:#0ea5e9">18</strong></td>
+   <td><span class="vg">$4,039</span></td>
+   <td><div class="mbar"><div class="mfill" style="width:4%;background:#0ea5e9"></div></div>4%</td>
+   <td><span class="badge" style="background:rgba(56,139,253,.12);color:#388bfd">متوسط</span></td>
+  </tr><tr>
+   <td style="color:var(--text3)">31</td>
+   <td><span class="tmain">طباخ 5 عيون ستيل Tecnogas P3</span><br><span class="tmod">P3X96G5VE</span></td>
+   <td><span class="tmod">P3X96G5VE</span></td>
+   <td><span class="badge" style="background:#84cc1618;color:#84cc16">Tecnogas GC</span></td>
+   <td><span class="vg">$304.00</span></td>
+   <td><strong style="color:#84cc16">17</strong></td>
+   <td><span class="vg">$5,168</span></td>
+   <td><div class="mbar"><div class="mfill" style="width:3%;background:#84cc16"></div></div>3%</td>
+   <td><span class="badge" style="background:rgba(56,139,253,.12);color:#388bfd">متوسط</span></td>
+  </tr><tr>
+   <td style="color:var(--text3)">32</td>
+   <td><span class="tmain">طباخ 4 عيون ستيل Tecnogas VE</span><br><span class="tmod">P3X66G4VE</span></td>
+   <td><span class="tmod">P3X66G4VE</span></td>
+   <td><span class="badge" style="background:#84cc1618;color:#84cc16">Tecnogas GC</span></td>
+   <td><span class="vg">$304.00</span></td>
+   <td><strong style="color:#84cc16">17</strong></td>
+   <td><span class="vg">$5,168</span></td>
+   <td><div class="mbar"><div class="mfill" style="width:3%;background:#84cc16"></div></div>3%</td>
+   <td><span class="badge" style="background:rgba(56,139,253,.12);color:#388bfd">متوسط</span></td>
+  </tr><tr>
+   <td style="color:var(--text3)">33</td>
+   <td><span class="tmain">ثلاجة سايد باي سايد 22قدم رم…</span><br><span class="tmod">DR-S6441DI</span></td>
+   <td><span class="tmod">DR-S6441DI</span></td>
+   <td><span class="badge" style="background:#0ea5e918;color:#0ea5e9">DAEWOO Ref&amp;Fr</span></td>
+   <td><span class="vg">$405.00</span></td>
+   <td><strong style="color:#0ea5e9">16</strong></td>
+   <td><span class="vg">$6,480</span></td>
+   <td><div class="mbar"><div class="mfill" style="width:3%;background:#0ea5e9"></div></div>3%</td>
+   <td><span class="badge" style="background:rgba(56,139,253,.12);color:#388bfd">متوسط</span></td>
+  </tr><tr>
+   <td style="color:var(--text3)">34</td>
+   <td><span class="tmain">ثلاجة 17قدم ابيض DAEWOO</span><br><span class="tmod">DR-T5041WH</span></td>
+   <td><span class="tmod">DR-T5041WH</span></td>
+   <td><span class="badge" style="background:#0ea5e918;color:#0ea5e9">DAEWOO Ref&amp;Fr</span></td>
+   <td><span class="vg">$300.40</span></td>
+   <td><strong style="color:#0ea5e9">16</strong></td>
+   <td><span class="vg">$4,806</span></td>
+   <td><div class="mbar"><div class="mfill" style="width:3%;background:#0ea5e9"></div></div>3%</td>
+   <td><span class="badge" style="background:rgba(56,139,253,.12);color:#388bfd">متوسط</span></td>
+  </tr><tr>
+   <td style="color:var(--text3)">35</td>
+   <td><span class="tmain">تلفزيون 65 DAEWOO QLED</span><br><span class="tmod">DT-Q6581CN</span></td>
+   <td><span class="tmod">DT-Q6581CN</span></td>
+   <td><span class="badge" style="background:#7c3aed18;color:#7c3aed">Daewoo TV</span></td>
+   <td><span class="vg">$305.00</span></td>
+   <td><strong style="color:#7c3aed">15</strong></td>
+   <td><span class="vg">$4,575</span></td>
+   <td><div class="mbar"><div class="mfill" style="width:3%;background:#7c3aed"></div></div>3%</td>
+   <td><span class="badge" style="background:rgba(56,139,253,.12);color:#388bfd">متوسط</span></td>
+  </tr><tr>
+   <td style="color:var(--text3)">36</td>
+   <td><span class="tmain">طباخ 4 عيون ستيل Tecnogas VC</span><br><span class="tmod">P1X66G4VC</span></td>
+   <td><span class="tmod">P1X66G4VC</span></td>
+   <td><span class="badge" style="background:#84cc1618;color:#84cc16">Tecnogas GC</span></td>
+   <td><span class="vg">$304.00</span></td>
+   <td><strong style="color:#84cc16">14</strong></td>
+   <td><span class="vg">$4,256</span></td>
+   <td><div class="mbar"><div class="mfill" style="width:3%;background:#84cc16"></div></div>3%</td>
+   <td><span class="badge" style="background:rgba(56,139,253,.12);color:#388bfd">متوسط</span></td>
+  </tr><tr>
+   <td style="color:var(--text3)">37</td>
+   <td><span class="tmain">ثلاجة 25قدم 4أبواب رمادي DAE…</span><br><span class="tmod">DR-M7241DI</span></td>
+   <td><span class="tmod">DR-M7241DI</span></td>
+   <td><span class="badge" style="background:#0ea5e918;color:#0ea5e9">DAEWOO Ref&amp;Fr</span></td>
+   <td><span class="vg">$604.00</span></td>
+   <td><strong style="color:#0ea5e9">14</strong></td>
+   <td><span class="vg">$8,456</span></td>
+   <td><div class="mbar"><div class="mfill" style="width:3%;background:#0ea5e9"></div></div>3%</td>
+   <td><span class="badge" style="background:rgba(56,139,253,.12);color:#388bfd">متوسط</span></td>
+  </tr><tr>
+   <td style="color:var(--text3)">38</td>
+   <td><span class="tmain">ثلاجة سايد باي سايد 22قدم اس…</span><br><span class="tmod">DR-S6441B</span></td>
+   <td><span class="tmod">DR-S6441B</span></td>
+   <td><span class="badge" style="background:#0ea5e918;color:#0ea5e9">DAEWOO Ref&amp;Fr</span></td>
+   <td><span class="vg">$399.00</span></td>
+   <td><strong style="color:#0ea5e9">13</strong></td>
+   <td><span class="vg">$5,187</span></td>
+   <td><div class="mbar"><div class="mfill" style="width:3%;background:#0ea5e9"></div></div>3%</td>
+   <td><span class="badge" style="background:rgba(56,139,253,.12);color:#388bfd">متوسط</span></td>
+  </tr><tr>
+   <td style="color:var(--text3)">39</td>
+   <td><span class="tmain">ثلاجة 25قدم 4أبواب اسود DAEW…</span><br><span class="tmod">DR-M7241B</span></td>
+   <td><span class="tmod">DR-M7241B</span></td>
+   <td><span class="badge" style="background:#0ea5e918;color:#0ea5e9">DAEWOO Ref&amp;Fr</span></td>
+   <td><span class="vg">$601.00</span></td>
+   <td><strong style="color:#0ea5e9">11</strong></td>
+   <td><span class="vg">$6,611</span></td>
+   <td><div class="mbar"><div class="mfill" style="width:2%;background:#0ea5e9"></div></div>2%</td>
+   <td><span class="badge" style="background:rgba(56,139,253,.12);color:#388bfd">متوسط</span></td>
+  </tr><tr>
+   <td style="color:var(--text3)">40</td>
+   <td><span class="tmain">مكنسة SNOWA رصاصي</span><br><span class="tmod">SVC-L21991BG</span></td>
+   <td><span class="tmod">SVC-L21991BG</span></td>
+   <td><span class="badge" style="background:#f472b618;color:#f472b6">Snowa VC</span></td>
+   <td><span class="vg">$43.34</span></td>
+   <td><strong style="color:#f472b6">10</strong></td>
+   <td><span class="vg">$433</span></td>
+   <td><div class="mbar"><div class="mfill" style="width:2%;background:#f472b6"></div></div>2%</td>
+   <td><span class="badge" style="background:rgba(56,139,253,.12);color:#388bfd">متوسط</span></td>
+  </tr><tr>
+   <td style="color:var(--text3)">41</td>
+   <td><span class="tmain">طباخ VALENTINO عيون5 ابيض</span><br><span class="tmod">SGC5-VEQ42</span></td>
+   <td><span class="tmod">SGC5-VEQ42</span></td>
+   <td><span class="badge" style="background:#3fb95018;color:#3fb950">Snowa Gc</span></td>
+   <td><span class="vg">$346.00</span></td>
+   <td><strong style="color:#3fb950">8</strong></td>
+   <td><span class="vg">$2,768</span></td>
+   <td><div class="mbar"><div class="mfill" style="width:2%;background:#3fb950"></div></div>2%</td>
+   <td><span class="badge" style="background:rgba(251,146,60,.12);color:#fb923c">منخفض</span></td>
+  </tr><tr>
+   <td style="color:var(--text3)">42</td>
+   <td><span class="tmain">غسالة KARIZMA 9كيلو TECNOGAZ</span><br><span class="tmod">WMFL914W1N</span></td>
+   <td><span class="tmod">WMFL914W1N</span></td>
+   <td><span class="badge" style="background:#f9731618;color:#f97316">Tecnogaz WM</span></td>
+   <td><span class="vg">$286.56</span></td>
+   <td><strong style="color:#f97316">7</strong></td>
+   <td><span class="vg">$2,006</span></td>
+   <td><div class="mbar"><div class="mfill" style="width:1%;background:#f97316"></div></div>1%</td>
+   <td><span class="badge" style="background:rgba(251,146,60,.12);color:#fb923c">منخفض</span></td>
+  </tr><tr>
+   <td style="color:var(--text3)">43</td>
+   <td><span class="tmain">غسالة KARIZMA 8كيلو TECNOGAZ</span><br><span class="tmod">WMFL812W1N</span></td>
+   <td><span class="tmod">WMFL812W1N</span></td>
+   <td><span class="badge" style="background:#f9731618;color:#f97316">Tecnogaz WM</span></td>
+   <td><span class="vg">$250.12</span></td>
+   <td><strong style="color:#f97316">6</strong></td>
+   <td><span class="vg">$1,501</span></td>
+   <td><div class="mbar"><div class="mfill" style="width:1%;background:#f97316"></div></div>1%</td>
+   <td><span class="badge" style="background:rgba(251,146,60,.12);color:#fb923c">منخفض</span></td>
+  </tr><tr>
+   <td style="color:var(--text3)">44</td>
+   <td><span class="tmain">شاشة 75 بوصة SNOWA Smart 4K</span><br><span class="tmod">SSD-75SQ15100U</span></td>
+   <td><span class="tmod">SSD-75SQ15100U</span></td>
+   <td><span class="badge" style="background:#a3e63518;color:#a3e635">Snowa TV</span></td>
+   <td><span class="vg">$555.00</span></td>
+   <td><strong style="color:#a3e635">6</strong></td>
+   <td><span class="vg">$3,330</span></td>
+   <td><div class="mbar"><div class="mfill" style="width:1%;background:#a3e635"></div></div>1%</td>
+   <td><span class="badge" style="background:rgba(251,146,60,.12);color:#fb923c">منخفض</span></td>
+  </tr><tr>
+   <td style="color:var(--text3)">45</td>
+   <td><span class="tmain">شاشة 75 بوصة Daewoo Smart 4K</span><br><span class="tmod">DSL-75SQ8000EU</span></td>
+   <td><span class="tmod">DSL-75SQ8000EU</span></td>
+   <td><span class="badge" style="background:#7c3aed18;color:#7c3aed">Daewoo TV</span></td>
+   <td><span class="vg">$544.00</span></td>
+   <td><strong style="color:#7c3aed">6</strong></td>
+   <td><span class="vg">$3,264</span></td>
+   <td><div class="mbar"><div class="mfill" style="width:1%;background:#7c3aed"></div></div>1%</td>
+   <td><span class="badge" style="background:rgba(251,146,60,.12);color:#fb923c">منخفض</span></td>
+  </tr><tr>
+   <td style="color:var(--text3)">46</td>
+   <td><span class="tmain">غسالة باب علوي 12كيلو سيلفر …</span><br><span class="tmod">DW-TI1223S</span></td>
+   <td><span class="tmod">DW-TI1223S</span></td>
+   <td><span class="badge" style="background:#e879f918;color:#e879f9">Daewoo WM</span></td>
+   <td><span class="vg">$179.29</span></td>
+   <td><strong style="color:#e879f9">5</strong></td>
+   <td><span class="vg">$896</span></td>
+   <td><div class="mbar"><div class="mfill" style="width:1%;background:#e879f9"></div></div>1%</td>
+   <td><span class="badge" style="background:rgba(251,146,60,.12);color:#fb923c">منخفض</span></td>
+  </tr><tr>
+   <td style="color:var(--text3)">47</td>
+   <td><span class="tmain">ثلاجة HARMONY سايد 32قدم ابي…</span><br><span class="tmod">SN8-2034GW</span></td>
+   <td><span class="tmod">SN8-2034GW</span></td>
+   <td><span class="badge" style="background:#22d3ee18;color:#22d3ee">Snowa Ref&amp;Fr</span></td>
+   <td><span class="vg">$730.06</span></td>
+   <td><strong style="color:#22d3ee">4</strong></td>
+   <td><span class="vg">$2,920</span></td>
+   <td><div class="mbar"><div class="mfill" style="width:1%;background:#22d3ee"></div></div>1%</td>
+   <td><span class="badge" style="background:rgba(251,146,60,.12);color:#fb923c">منخفض</span></td>
+  </tr><tr>
+   <td style="color:var(--text3)">48</td>
+   <td><span class="tmain">ثلاجة SN61019GW ابيض SNOWA</span><br><span class="tmod">SN61019GW</span></td>
+   <td><span class="tmod">SN61019GW</span></td>
+   <td><span class="badge" style="background:#22d3ee18;color:#22d3ee">Snowa Ref&amp;Fr</span></td>
+   <td><span class="vg">$368.00</span></td>
+   <td><strong style="color:#22d3ee">4</strong></td>
+   <td><span class="vg">$1,472</span></td>
+   <td><div class="mbar"><div class="mfill" style="width:1%;background:#22d3ee"></div></div>1%</td>
+   <td><span class="badge" style="background:rgba(251,146,60,.12);color:#fb923c">منخفض</span></td>
+  </tr><tr>
+   <td style="color:var(--text3)">49</td>
+   <td><span class="tmain">غسالة صحون 12 نفر سيلفر DAEW…</span><br><span class="tmod">DD-F1291S</span></td>
+   <td><span class="tmod">DD-F1291S</span></td>
+   <td><span class="badge" style="background:#f43f5e18;color:#f43f5e">DAEWOO DW</span></td>
+   <td><span class="vg">$171.93</span></td>
+   <td><strong style="color:#f43f5e">3</strong></td>
+   <td><span class="vg">$516</span></td>
+   <td><div class="mbar"><div class="mfill" style="width:1%;background:#f43f5e"></div></div>1%</td>
+   <td><span class="badge" style="background:rgba(251,146,60,.12);color:#fb923c">منخفض</span></td>
+  </tr><tr>
+   <td style="color:var(--text3)">50</td>
+   <td><span class="tmain">ثلاجة HYPER سايد 36قدم ابيض</span><br><span class="tmod">SN8-2035GW</span></td>
+   <td><span class="tmod">SN8-2035GW</span></td>
+   <td><span class="badge" style="background:#22d3ee18;color:#22d3ee">Snowa Ref&amp;Fr</span></td>
+   <td><span class="vg">$788.06</span></td>
+   <td><strong style="color:#22d3ee">3</strong></td>
+   <td><span class="vg">$2,364</span></td>
+   <td><div class="mbar"><div class="mfill" style="width:1%;background:#22d3ee"></div></div>1%</td>
+   <td><span class="badge" style="background:rgba(251,146,60,.12);color:#fb923c">منخفض</span></td>
+  </tr><tr>
+   <td style="color:var(--text3)">51</td>
+   <td><span class="tmain">ثلاجة HYPER سايد 32قدم ابيض</span><br><span class="tmod">SN8-2032GW</span></td>
+   <td><span class="tmod">SN8-2032GW</span></td>
+   <td><span class="badge" style="background:#22d3ee18;color:#22d3ee">Snowa Ref&amp;Fr</span></td>
+   <td><span class="vg">$764.29</span></td>
+   <td><strong style="color:#22d3ee">2</strong></td>
+   <td><span class="vg">$1,529</span></td>
+   <td><div class="mbar"><div class="mfill" style="width:0%;background:#22d3ee"></div></div>0%</td>
+   <td><span class="badge" style="background:rgba(248,81,73,.12);color:#f85149">حرج</span></td>
+  </tr><tr>
+   <td style="color:var(--text3)">52</td>
+   <td><span class="tmain">غسالة صحون 14 نفر سيلفر DAEW…</span><br><span class="tmod">DD-F1492S</span></td>
+   <td><span class="tmod">DD-F1492S</span></td>
+   <td><span class="badge" style="background:#f43f5e18;color:#f43f5e">DAEWOO DW</span></td>
+   <td><span class="vg">$193.63</span></td>
+   <td><strong style="color:#f43f5e">2</strong></td>
+   <td><span class="vg">$387</span></td>
+   <td><div class="mbar"><div class="mfill" style="width:0%;background:#f43f5e"></div></div>0%</td>
+   <td><span class="badge" style="background:rgba(248,81,73,.12);color:#f85149">حرج</span></td>
+  </tr><tr>
+   <td style="color:var(--text3)">53</td>
+   <td><span class="tmain">غسالة صحون 14 نفر رمادي DAEW…</span><br><span class="tmod">DD-F1492DI</span></td>
+   <td><span class="tmod">DD-F1492DI</span></td>
+   <td><span class="badge" style="background:#f43f5e18;color:#f43f5e">DAEWOO DW</span></td>
+   <td><span class="vg">$194.00</span></td>
+   <td><strong style="color:#f43f5e">2</strong></td>
+   <td><span class="vg">$388</span></td>
+   <td><div class="mbar"><div class="mfill" style="width:0%;background:#f43f5e"></div></div>0%</td>
+   <td><span class="badge" style="background:rgba(248,81,73,.12);color:#f85149">حرج</span></td>
+  </tr><tr>
+   <td style="color:var(--text3)">54</td>
+   <td><span class="tmain">طباخ ROMINA عيون5 احمر SNOWA</span><br><span class="tmod">SGC5-REQ41</span></td>
+   <td><span class="tmod">SGC5-REQ41</span></td>
+   <td><span class="badge" style="background:#3fb95018;color:#3fb950">Snowa Gc</span></td>
+   <td><span class="vg">$257.00</span></td>
+   <td><strong style="color:#3fb950">2</strong></td>
+   <td><span class="vg">$514</span></td>
+   <td><div class="mbar"><div class="mfill" style="width:0%;background:#3fb950"></div></div>0%</td>
+   <td><span class="badge" style="background:rgba(248,81,73,.12);color:#f85149">حرج</span></td>
+  </tr><tr>
+   <td style="color:var(--text3)">55</td>
+   <td><span class="tmain">غسالة 9كيلو ابيض ZEN LIFE Da…</span><br><span class="tmod">DWD-FZ914W</span></td>
+   <td><span class="tmod">DWD-FZ914W</span></td>
+   <td><span class="badge" style="background:#e879f918;color:#e879f9">Daewoo WM</span></td>
+   <td><span class="vg">$307.00</span></td>
+   <td><strong style="color:#e879f9">2</strong></td>
+   <td><span class="vg">$614</span></td>
+   <td><div class="mbar"><div class="mfill" style="width:0%;background:#e879f9"></div></div>0%</td>
+   <td><span class="badge" style="background:rgba(248,81,73,.12);color:#f85149">حرج</span></td>
+  </tr><tr>
+   <td style="color:var(--text3)">56</td>
+   <td><span class="tmain">غسالة باب علوي 18كيلو رمادي …</span><br><span class="tmod">DW-TI1822DG</span></td>
+   <td><span class="tmod">DW-TI1822DG</span></td>
+   <td><span class="badge" style="background:#e879f918;color:#e879f9">Daewoo WM</span></td>
+   <td><span class="vg">$242.92</span></td>
+   <td><strong style="color:#e879f9">2</strong></td>
+   <td><span class="vg">$486</span></td>
+   <td><div class="mbar"><div class="mfill" style="width:0%;background:#e879f9"></div></div>0%</td>
+   <td><span class="badge" style="background:rgba(248,81,73,.12);color:#f85149">حرج</span></td>
+  </tr><tr>
+   <td style="color:var(--text3)">57</td>
+   <td><span class="tmain">قطعة خارجية سبالت طنين Daewo…</span><br><span class="tmod">DAC-2400CH</span></td>
+   <td><span class="tmod">DAC-2400CH</span></td>
+   <td><span class="badge" style="background:#d2992218;color:#d29922">Daewoo AC</span></td>
+   <td><span class="vg">—</span></td>
+   <td><strong style="color:#d29922">1</strong></td>
+   <td><span class="vg">—</span></td>
+   <td><div class="mbar"><div class="mfill" style="width:0%;background:#d29922"></div></div>0%</td>
+   <td><span class="badge" style="background:rgba(248,81,73,.12);color:#f85149">حرج</span></td>
+  </tr><tr>
+   <td style="color:var(--text3)">58</td>
+   <td><span class="tmain">قطعة داخلية سبالت طن عادي</span><br><span class="tmod">Dae-IN</span></td>
+   <td><span class="tmod">Dae-IN</span></td>
+   <td><span class="badge" style="background:#d2992218;color:#d29922">Daewoo AC</span></td>
+   <td><span class="vg">—</span></td>
+   <td><strong style="color:#d29922">1</strong></td>
+   <td><span class="vg">—</span></td>
+   <td><div class="mbar"><div class="mfill" style="width:0%;background:#d29922"></div></div>0%</td>
+   <td><span class="badge" style="background:rgba(248,81,73,.12);color:#f85149">حرج</span></td>
+  </tr><tr>
+   <td style="color:var(--text3)">59</td>
+   <td><span class="tmain">ثلاجة 22قدم ابيض DAEWOO</span><br><span class="tmod">DR-T6441WH</span></td>
+   <td><span class="tmod">DR-T6441WH</span></td>
+   <td><span class="badge" style="background:#0ea5e918;color:#0ea5e9">DAEWOO Ref&amp;Fr</span></td>
+   <td><span class="vg">$326.00</span></td>
+   <td><strong style="color:#0ea5e9">1</strong></td>
+   <td><span class="vg">$326</span></td>
+   <td><div class="mbar"><div class="mfill" style="width:0%;background:#0ea5e9"></div></div>0%</td>
+   <td><span class="badge" style="background:rgba(248,81,73,.12);color:#f85149">حرج</span></td>
+  </tr><tr>
+   <td style="color:var(--text3)">60</td>
+   <td><span class="tmain">شاشة FHD 43 بوصة Daewoo Smar…</span><br><span class="tmod">DSL-43SQ7000E</span></td>
+   <td><span class="tmod">DSL-43SQ7000E</span></td>
+   <td><span class="badge" style="background:#7c3aed18;color:#7c3aed">Daewoo TV</span></td>
+   <td><span class="vg">$160.00</span></td>
+   <td><strong style="color:#7c3aed">1</strong></td>
+   <td><span class="vg">$160</span></td>
+   <td><div class="mbar"><div class="mfill" style="width:0%;background:#7c3aed"></div></div>0%</td>
+   <td><span class="badge" style="background:rgba(248,81,73,.12);color:#f85149">حرج</span></td>
+  </tr><tr>
+   <td style="color:var(--text3)">61</td>
+   <td><span class="tmain">طباخ 5 عيون ستيل Tecnogas N3</span><br><span class="tmod">N3X96G5VE</span></td>
+   <td><span class="tmod">N3X96G5VE</span></td>
+   <td><span class="badge" style="background:#84cc1618;color:#84cc16">Tecnogas GC</span></td>
+   <td><span class="vg">$344.00</span></td>
+   <td><strong style="color:#84cc16">1</strong></td>
+   <td><span class="vg">$344</span></td>
+   <td><div class="mbar"><div class="mfill" style="width:0%;background:#84cc16"></div></div>0%</td>
+   <td><span class="badge" style="background:rgba(248,81,73,.12);color:#f85149">حرج</span></td>
+  </tr><tr>
+   <td style="color:var(--text3)">62</td>
+   <td><span class="tmain">شاشة 65 بوصة Daewoo Smart 4K</span><br><span class="tmod">DSL-65SQ8000EU</span></td>
+   <td><span class="tmod">DSL-65SQ8000EU</span></td>
+   <td><span class="badge" style="background:#7c3aed18;color:#7c3aed">Daewoo TV</span></td>
+   <td><span class="vg">$311.00</span></td>
+   <td><strong style="color:#7c3aed">1</strong></td>
+   <td><span class="vg">$311</span></td>
+   <td><div class="mbar"><div class="mfill" style="width:0%;background:#7c3aed"></div></div>0%</td>
+   <td><span class="badge" style="background:rgba(248,81,73,.12);color:#f85149">حرج</span></td>
+  </tr><tr>
+   <td style="color:var(--text3)">63</td>
+   <td><span class="tmain">ثلاجة PRIME سايد 3أبواب سيلف…</span><br><span class="tmod">DFRS-P36D3SS</span></td>
+   <td><span class="tmod">DFRS-P36D3SS</span></td>
+   <td><span class="badge" style="background:#0ea5e918;color:#0ea5e9">DAEWOO Ref&amp;Fr</span></td>
+   <td><span class="vg">$895.57</span></td>
+   <td><strong style="color:#0ea5e9">1</strong></td>
+   <td><span class="vg">$896</span></td>
+   <td><div class="mbar"><div class="mfill" style="width:0%;background:#0ea5e9"></div></div>0%</td>
+   <td><span class="badge" style="background:rgba(248,81,73,.12);color:#f85149">حرج</span></td>
+  </tr><tr>
+   <td style="color:var(--text3)">64</td>
+   <td><span class="tmain">ثلاجة PRIME سايد 3أبواب ابيض</span><br><span class="tmod">DFRS-P36D3MW</span></td>
+   <td><span class="tmod">DFRS-P36D3MW</span></td>
+   <td><span class="badge" style="background:#0ea5e918;color:#0ea5e9">DAEWOO Ref&amp;Fr</span></td>
+   <td><span class="vg">$978.56</span></td>
+   <td><strong style="color:#0ea5e9">1</strong></td>
+   <td><span class="vg">$979</span></td>
+   <td><div class="mbar"><div class="mfill" style="width:0%;background:#0ea5e9"></div></div>0%</td>
+   <td><span class="badge" style="background:rgba(248,81,73,.12);color:#f85149">حرج</span></td>
+  </tr><tr>
+   <td style="color:var(--text3)">65</td>
+   <td><span class="tmain">غسالة 9كيلو سيلفر ZEN LIFE D…</span><br><span class="tmod">DWD-FZ914S</span></td>
+   <td><span class="tmod">DWD-FZ914S</span></td>
+   <td><span class="badge" style="background:#e879f918;color:#e879f9">Daewoo WM</span></td>
+   <td><span class="vg">$317.00</span></td>
+   <td><strong style="color:#e879f9">1</strong></td>
+   <td><span class="vg">$317</span></td>
+   <td><div class="mbar"><div class="mfill" style="width:0%;background:#e879f9"></div></div>0%</td>
+   <td><span class="badge" style="background:rgba(248,81,73,.12);color:#f85149">حرج</span></td>
+  </tr><tr>
+   <td style="color:var(--text3)">66</td>
+   <td><span class="tmain">مجمدة TWIN سيلفر SNOWA</span><br><span class="tmod">EF1800-SS</span></td>
+   <td><span class="tmod">EF1800-SS</span></td>
+   <td><span class="badge" style="background:#22d3ee18;color:#22d3ee">Snowa Ref&amp;Fr</span></td>
+   <td><span class="vg">$373.78</span></td>
+   <td><strong style="color:#22d3ee">1</strong></td>
+   <td><span class="vg">$374</span></td>
+   <td><div class="mbar"><div class="mfill" style="width:0%;background:#22d3ee"></div></div>0%</td>
+   <td><span class="badge" style="background:rgba(248,81,73,.12);color:#f85149">حرج</span></td>
+  </tr><tr>
+   <td style="color:var(--text3)">67</td>
+   <td><span class="tmain">قطعة داخلية سبالت طن ونص إنف…</span><br><span class="tmod">-</span></td>
+   <td><span class="tmod">-</span></td>
+   <td><span class="badge" style="background:#d2992218;color:#d29922">Daewoo AC</span></td>
+   <td><span class="vg">—</span></td>
+   <td><strong style="color:#d29922">1</strong></td>
+   <td><span class="vg">—</span></td>
+   <td><div class="mbar"><div class="mfill" style="width:0%;background:#d29922"></div></div>0%</td>
+   <td><span class="badge" style="background:rgba(248,81,73,.12);color:#f85149">حرج</span></td>
+  </tr><tr>
+   <td style="color:var(--text3)">68</td>
+   <td><span class="tmain">غسالة صحون 12 نفر ابيض DAEWO…</span><br><span class="tmod">DD-F1291W</span></td>
+   <td><span class="tmod">DD-F1291W</span></td>
+   <td><span class="badge" style="background:#f43f5e18;color:#f43f5e">DAEWOO DW</span></td>
+   <td><span class="vg">$171.93</span></td>
+   <td><strong style="color:#f43f5e">1</strong></td>
+   <td><span class="vg">$172</span></td>
+   <td><div class="mbar"><div class="mfill" style="width:0%;background:#f43f5e"></div></div>0%</td>
+   <td><span class="badge" style="background:rgba(248,81,73,.12);color:#f85149">حرج</span></td>
+  </tr><tr>
+   <td style="color:var(--text3)">69</td>
+   <td><span class="tmain">ثلاجة PRIME سايد 32قدم 3أبوا…</span><br><span class="tmod">DFRS-P32D3MW</span></td>
+   <td><span class="tmod">DFRS-P32D3MW</span></td>
+   <td><span class="badge" style="background:#0ea5e918;color:#0ea5e9">DAEWOO Ref&amp;Fr</span></td>
+   <td><span class="vg">$868.11</span></td>
+   <td><strong style="color:#0ea5e9">1</strong></td>
+   <td><span class="vg">$868</span></td>
+   <td><div class="mbar"><div class="mfill" style="width:0%;background:#0ea5e9"></div></div>0%</td>
+   <td><span class="badge" style="background:rgba(248,81,73,.12);color:#f85149">حرج</span></td>
+  </tr><tr>
+   <td style="color:var(--text3)">70</td>
+   <td><span class="tmain">ثلاجة PRIME سايد بابين سيلفر</span><br><span class="tmod">DFRS-P36D2SS</span></td>
+   <td><span class="tmod">DFRS-P36D2SS</span></td>
+   <td><span class="badge" style="background:#0ea5e918;color:#0ea5e9">DAEWOO Ref&amp;Fr</span></td>
+   <td><span class="vg">$821.12</span></td>
+   <td><strong style="color:#0ea5e9">1</strong></td>
+   <td><span class="vg">$821</span></td>
+   <td><div class="mbar"><div class="mfill" style="width:0%;background:#0ea5e9"></div></div>0%</td>
+   <td><span class="badge" style="background:rgba(248,81,73,.12);color:#f85149">حرج</span></td>
+  </tr><tr>
+   <td style="color:var(--text3)">71</td>
+   <td><span class="tmain">ثلاجة MORANO ابيض SNOWA</span><br><span class="tmod">STM-2700SW</span></td>
+   <td><span class="tmod">STM-2700SW</span></td>
+   <td><span class="badge" style="background:#22d3ee18;color:#22d3ee">Snowa Ref&amp;Fr</span></td>
+   <td><span class="vg">$426.33</span></td>
+   <td><strong style="color:#22d3ee">1</strong></td>
+   <td><span class="vg">$426</span></td>
+   <td><div class="mbar"><div class="mfill" style="width:0%;background:#22d3ee"></div></div>0%</td>
+   <td><span class="badge" style="background:rgba(248,81,73,.12);color:#f85149">حرج</span></td>
+  </tr><tr>
+   <td style="color:var(--text3)">72</td>
+   <td><span class="tmain">ثلاجة HYPER سايد 36قدم سيلفر</span><br><span class="tmod">SN8-2035SS</span></td>
+   <td><span class="tmod">SN8-2035SS</span></td>
+   <td><span class="badge" style="background:#22d3ee18;color:#22d3ee">Snowa Ref&amp;Fr</span></td>
+   <td><span class="vg">$798.06</span></td>
+   <td><strong style="color:#22d3ee">1</strong></td>
+   <td><span class="vg">$798</span></td>
+   <td><div class="mbar"><div class="mfill" style="width:0%;background:#22d3ee"></div></div>0%</td>
+   <td><span class="badge" style="background:rgba(248,81,73,.12);color:#f85149">حرج</span></td>
+  </tr><tr>
+   <td style="color:var(--text3)">73</td>
+   <td><span class="tmain">ثلاجة HARMONY سايد 27قدم ابي…</span><br><span class="tmod">SN8-2028GW</span></td>
+   <td><span class="tmod">SN8-2028GW</span></td>
+   <td><span class="badge" style="background:#22d3ee18;color:#22d3ee">Snowa Ref&amp;Fr</span></td>
+   <td><span class="vg">$620.71</span></td>
+   <td><strong style="color:#22d3ee">1</strong></td>
+   <td><span class="vg">$621</span></td>
+   <td><div class="mbar"><div class="mfill" style="width:0%;background:#22d3ee"></div></div>0%</td>
+   <td><span class="badge" style="background:rgba(248,81,73,.12);color:#f85149">حرج</span></td>
+  </tr><tr>
+   <td style="color:var(--text3)">74</td>
+   <td><span class="tmain">ثلاجة GALLERY سايد 3أبواب 36…</span><br><span class="tmod">SN8-3035SS</span></td>
+   <td><span class="tmod">SN8-3035SS</span></td>
+   <td><span class="badge" style="background:#22d3ee18;color:#22d3ee">Snowa Ref&amp;Fr</span></td>
+   <td><span class="vg">$900.91</span></td>
+   <td><strong style="color:#22d3ee">1</strong></td>
+   <td><span class="vg">$901</span></td>
+   <td><div class="mbar"><div class="mfill" style="width:0%;background:#22d3ee"></div></div>0%</td>
+   <td><span class="badge" style="background:rgba(248,81,73,.12);color:#f85149">حرج</span></td>
+  </tr><tr>
+   <td style="color:var(--text3)">75</td>
+   <td><span class="tmain">ثلاجة GALLERY سايد 3أبواب 36…</span><br><span class="tmod">SN8-3035GW</span></td>
+   <td><span class="tmod">SN8-3035GW</span></td>
+   <td><span class="badge" style="background:#22d3ee18;color:#22d3ee">Snowa Ref&amp;Fr</span></td>
+   <td><span class="vg">$882.34</span></td>
+   <td><strong style="color:#22d3ee">1</strong></td>
+   <td><span class="vg">$882</span></td>
+   <td><div class="mbar"><div class="mfill" style="width:0%;background:#22d3ee"></div></div>0%</td>
+   <td><span class="badge" style="background:rgba(248,81,73,.12);color:#f85149">حرج</span></td>
+  </tr><tr>
+   <td style="color:var(--text3)">76</td>
+   <td><span class="tmain">ثلاجة 660PLUS BMF 28قدم ابيض</span><br><span class="tmod">SN4-2023SW</span></td>
+   <td><span class="tmod">SN4-2023SW</span></td>
+   <td><span class="badge" style="background:#22d3ee18;color:#22d3ee">Snowa Ref&amp;Fr</span></td>
+   <td><span class="vg">$395.65</span></td>
+   <td><strong style="color:#22d3ee">1</strong></td>
+   <td><span class="vg">$396</span></td>
+   <td><div class="mbar"><div class="mfill" style="width:0%;background:#22d3ee"></div></div>0%</td>
+   <td><span class="badge" style="background:rgba(248,81,73,.12);color:#f85149">حرج</span></td>
+  </tr><tr>
+   <td style="color:var(--text3)">77</td>
+   <td><span class="tmain">ثلاجة PARAMO MID سايد 32قدم …</span><br><span class="tmod">DFRS-PX32D2SS</span></td>
+   <td><span class="tmod">DFRS-PX32D2SS</span></td>
+   <td><span class="badge" style="background:#0ea5e918;color:#0ea5e9">DAEWOO Ref&amp;Fr</span></td>
+   <td><span class="vg">$777.55</span></td>
+   <td><strong style="color:#0ea5e9">1</strong></td>
+   <td><span class="vg">$778</span></td>
+   <td><div class="mbar"><div class="mfill" style="width:0%;background:#0ea5e9"></div></div>0%</td>
+   <td><span class="badge" style="background:rgba(248,81,73,.12);color:#f85149">حرج</span></td>
+  </tr><tr>
+   <td style="color:var(--text3)">78</td>
+   <td><span class="tmain">ثلاجة GALLERY سايد 3أبواب 32…</span><br><span class="tmod">SN8-3032GW</span></td>
+   <td><span class="tmod">SN8-3032GW</span></td>
+   <td><span class="badge" style="background:#22d3ee18;color:#22d3ee">Snowa Ref&amp;Fr</span></td>
+   <td><span class="vg">$858.42</span></td>
+   <td><strong style="color:#22d3ee">1</strong></td>
+   <td><span class="vg">$858</span></td>
+   <td><div class="mbar"><div class="mfill" style="width:0%;background:#22d3ee"></div></div>0%</td>
+   <td><span class="badge" style="background:rgba(248,81,73,.12);color:#f85149">حرج</span></td>
+  </tr></tbody>
+        </table>
+      </div>
+      <div class="cf" id="tFoot">78 منتج · الكمية: 3,560 · القيمة: <span class="vg">$687,510</span></div>
+    </div>
+    <div class="g2" style="margin-top:16px">
+      <div class="card"><div class="ch"><div class="ct">📊 <span data-ar="أعلى 12 بالكمية" data-en="Top 12 by Qty">أعلى 12 بالكمية</span></div></div><div class="cwrap" style="height:270px"><canvas id="cTopQ" style="box-sizing: border-box; display: block; height: 242px; width: 586px;" width="733" height="302"></canvas></div></div>
+      <div class="card"><div class="ch"><div class="ct">💰 <span data-ar="أعلى 12 بالقيمة" data-en="Top 12 by Value">أعلى 12 بالقيمة</span></div></div><div class="cwrap" style="height:270px"><canvas id="cTopV" style="box-sizing: border-box; display: block; height: 242px; width: 586px;" width="733" height="302"></canvas></div></div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════
+       PAGE: CATEGORIES
+  ══════════════════════════════════════ -->
+  <div class="page" id="page-categories">
+    <div class="sh"><div><div class="stit" id="catTitle">تحليل الفئات — المخزن الأساسي</div><div class="ssub" id="catSub">15 فئة</div></div></div>
+    <div class="kpi-row" id="catKpis" style="grid-template-columns:repeat(5,1fr)"></div>
+    <div class="g2">
+      <div class="card"><div class="ch"><div class="ct">📊 <span data-ar="الكميات حسب الفئة" data-en="Qty by Category">الكميات حسب الفئة</span></div></div><div class="cwrap" style="height:300px"><canvas id="cCatQ"></canvas></div></div>
+      <div class="card"><div class="ch"><div class="ct">💰 <span data-ar="القيمة حسب الفئة" data-en="Value by Category">القيمة حسب الفئة</span></div></div><div class="cwrap" style="height:300px"><canvas id="cCatV"></canvas></div></div>
+    </div>
+    <div class="card"><div class="ch"><div class="ct">📋 <span data-ar="تفصيل الفئات" data-en="Categories Detail">تفصيل الفئات</span></div></div><div id="catDetail"></div></div>
+  </div>
+
+  <!-- ══════════════════════════════════════
+       PAGE: FINANCE
+  ══════════════════════════════════════ -->
+  <div class="page" id="page-finance">
+    <div class="sh"><div><div class="stit" id="finTitle">التحليل المالي — المخزن الأساسي</div><div class="ssub" id="finSub"></div></div></div>
+    <div class="kpi-row" id="finKpis"></div>
+    <div class="g6535">
+      <div class="card"><div class="ch"><div class="ct">💎 <span data-ar="القيمة حسب الفئة" data-en="Value by Category">القيمة حسب الفئة</span></div></div><div class="blist" id="vBars"></div></div>
+      <div class="card"><div class="ch"><div class="ct">🥧 <span data-ar="توزيع القيمة" data-en="Value Distribution">توزيع القيمة</span></div></div>
+        <div class="dwrap"><div class="dcanv"><canvas id="donutV"></canvas><div class="dctr"><div class="dcv" id="donutVCenter">$687K</div><div class="dcl" data-ar="إجمالي" data-en="total">إجمالي</div></div></div><div class="dleg" id="dVLeg"></div></div>
+      </div>
+    </div>
+    <div class="card"><div class="ch"><div class="ct">💰 <span data-ar="أعلى 15 منتج بالقيمة" data-en="Top 15 by Value">أعلى 15 منتج بالقيمة</span></div></div><div class="blist" id="top15V"></div></div>
+  </div>
+
+  <!-- ══════════════════════════════════════
+       PAGE: ALERTS
+  ══════════════════════════════════════ -->
+  <div class="page" id="page-alerts">
+    <div class="sh"><div><div class="stit" id="alertTitle">التنبيهات — المخزن الأساسي</div></div></div>
+    <div id="alertContent"></div>
+  </div>
+
+  <!-- ══════════════════════════════════════
+       PAGE: PRIORITIES
+  ══════════════════════════════════════ -->
+  <div class="page" id="page-priorities">
+    <div class="sh"><div><div class="stit" id="priTitle">الأولويات — المخزن الأساسي</div><div class="ssub" data-ar="مرتبة حسب الأهمية والإلحاح" data-en="Ranked by importance and urgency">مرتبة حسب الأهمية والإلحاح</div></div></div>
+    <div class="g6535">
+      <div class="card"><div class="ch"><div class="ct">🎯 <span data-ar="قائمة الأولويات" data-en="Priority List">قائمة الأولويات</span></div></div><div id="priList"></div></div>
+      <div>
+        <div class="card" style="margin-bottom:16px"><div class="ch"><div class="ct">📊 <span data-ar="درجة الإلحاح" data-en="Urgency Score">درجة الإلحاح</span></div></div><div class="cwrap" style="height:200px"><canvas id="cUrg"></canvas></div></div>
+        <div class="card"><div class="ch"><div class="ct">⏱️ <span data-ar="الجدول الزمني" data-en="Timeline">الجدول الزمني</span></div></div>
+          <div class="cb" style="padding:12px"><div id="timeline" style="display:flex;flex-direction:column;gap:8px;font-size:10.5px"></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<script>
+/* ═══════════════════════════════════════════════
+   DATA DEFINITIONS
+═══════════════════════════════════════════════ */
+const CATS_COLORS = {
+ 'Snowa Gc':'#3fb950','Snowa TM':'#67e8f9','Snowa CHP':'#388bfd','Snowa SDA':'#a78bfa',
+ 'Snowa VC':'#f472b6','Snowa WM':'#fb923c','Snowa Ref&Fr':'#22d3ee','Snowa TV':'#a3e635',
+ 'Daewoo AC':'#d29922','Daewoo TV':'#7c3aed','Daewoo WM':'#e879f9','DAEWOO DW':'#f43f5e',
+ 'DAEWOO Ref&Fr':'#0ea5e9','Tecnogas GC':'#84cc16','Tecnogaz WM':'#f97316',
+ 'BOST':'#ff6b6b','Snowa SBS':'#06b6d4','tecnogas gc':'#84cc16','Tecnoz WM':'#f97316',
+ 'SNOWA TV':'#a3e635','SNOWA VC':'#f472b6','SNOWA SDA':'#a78bfa'
+};
+
+/* ─ المخزن الأساسي ─ */
+const DATA_MAIN = [
+ {id:1,cat:'Snowa TM',code:'SS-TM1891GB',name:'صانع الشاي TEA MAKER SNOWA',nameEn:'Tea Maker SNOWA',price:13.74,qty:500,total:6870},
+ {id:2,cat:'Snowa Gc',code:'SGC5-VEQ41',name:'طباخ VALENTINO عيون5 استيل',nameEn:'VALENTINO 5-Eye Cooker Steel',price:353.73,qty:470,total:166253},
+ {id:3,cat:'Snowa CHP',code:'SS-C591B',name:'محضرة طعام CHOOPER Snowa',nameEn:'Food Processor SNOWA',price:11.74,qty:378,total:4437},
+ {id:4,cat:'Snowa Gc',code:'SGC5-REQ11',name:'طباخ ROMINA عيون5 استيل',nameEn:'ROMINA 5-Eye Cooker Steel',price:259.77,qty:274,total:71177},
+ {id:5,cat:'Snowa Gc',code:'SGC5-REQ51',name:'طباخ ROMINA عيون5 بيجي',nameEn:'ROMINA 5-Eye Cooker Beige',price:346,qty:163,total:56398},
+ {id:6,cat:'Snowa SDA',code:'SS-H1091AB',name:'خلاط يدوي SNOWA اسود',nameEn:'Hand Mixer SNOWA Black',price:22.89,qty:156,total:3571},
+ {id:7,cat:'Snowa Gc',code:'SHB5-102',name:'طباخ منضدي عيون5 SNOWA SH102',nameEn:'Tabletop Cooker 5-Eye SH102',price:85,qty:153,total:13005},
+ {id:8,cat:'Snowa Gc',code:'SGC5-VEQ45',name:'طباخ VALENTINO عيون5 بيجي',nameEn:'VALENTINO 5-Eye Cooker Beige',price:310,qty:123,total:38130},
+ {id:9,cat:'Snowa VC',code:'SVC-L21991BB',name:'مكنسة SNOWA ازرق',nameEn:'Vacuum Cleaner SNOWA Blue',price:43.34,qty:120,total:5201},
+ {id:10,cat:'Snowa Gc',code:'SGC5-VEQ43',name:'طباخ VALENTINO عيون5 اسود',nameEn:'VALENTINO 5-Eye Cooker Black',price:323,qty:119,total:38437},
+ {id:11,cat:'Daewoo AC',code:'DAC-1200CH',name:'سبالت عادي حار وبارد طن Daewoo',nameEn:'Standard AC 1T Daewoo',price:236,qty:113,total:26668},
+ {id:12,cat:'Snowa Gc',code:'SHB5-101',name:'طباخ منضدي عيون5 SNOWA SH101',nameEn:'Tabletop Cooker 5-Eye SH101',price:85,qty:70,total:5950},
+ {id:13,cat:'DAEWOO Ref&Fr',code:'DR-C3040WH',name:'مجمدة 10قدم ابيض DAEWOO',nameEn:'Freezer 10ft White DAEWOO',price:156,qty:68,total:10608},
+ {id:14,cat:'Snowa Gc',code:'SGC5-REQ21',name:'طباخ ROMINA عيون5 ابيض',nameEn:'ROMINA 5-Eye Cooker White',price:320,qty:63,total:20160},
+ {id:15,cat:'Snowa WM',code:'SW-F0792SI',name:'غسالة باب جانبي 7كيلو SNOWA سيلفر',nameEn:'Front Load 7kg SNOWA Silver',price:160,qty:60,total:9600},
+ {id:16,cat:'Snowa WM',code:'SW-F0792WH',name:'غسالة باب جانبي 7كيلو SNOWA ابيض',nameEn:'Front Load 7kg SNOWA White',price:160,qty:59,total:9440},
+ {id:17,cat:'Snowa Gc',code:'SHB5-100',name:'طباخ منضدي عيون5 SNOWA SH100',nameEn:'Tabletop Cooker 5-Eye SH100',price:95,qty:57,total:5415},
+ {id:18,cat:'Daewoo AC',code:'DAC-1200ICH',name:'سبالت إنفرتر حار وبارد طن Daewoo',nameEn:'Inverter AC 1T Daewoo',price:255,qty:47,total:11985},
+ {id:19,cat:'DAEWOO Ref&Fr',code:'DR-T6891SS',name:'ثلاجة 20قدم سيلفر DAEWOO',nameEn:'Fridge 20ft Silver DAEWOO',price:349,qty:42,total:14658},
+ {id:20,cat:'Daewoo TV',code:'DT-Q5581CN',name:'تلفزيون 55 DAEWOO QLED',nameEn:'TV 55" DAEWOO QLED',price:206,qty:41,total:8446},
+ {id:21,cat:'DAEWOO Ref&Fr',code:'DR-T5041DI',name:'ثلاجة 17قدم رمادي DAEWOO',nameEn:'Fridge 17ft Grey DAEWOO',price:300.4,qty:40,total:12016},
+ {id:22,cat:'Snowa WM',code:'SDW-96SS',name:'غسالة 9كيلو سيلفر OCTA PLUS',nameEn:'Washer 9kg Silver OCTA PLUS',price:297.66,qty:37,total:11013},
+ {id:23,cat:'Snowa Ref&Fr',code:'ER1800-GW',name:'ثلاجة TWIN ابيض SNOWA',nameEn:'Fridge TWIN White SNOWA',price:368.58,qty:27,total:9952},
+ {id:24,cat:'Snowa Ref&Fr',code:'ER1800-SS',name:'ثلاجة TWIN سيلفر SNOWA',nameEn:'Fridge TWIN Silver SNOWA',price:427,qty:26,total:11102},
+ {id:25,cat:'Daewoo WM',code:'DW-F0792SI',name:'غسالة باب جانبي 7كيلو Daewoo سيلفر',nameEn:'Front Load 7kg Daewoo Silver',price:130,qty:26,total:3380},
+ {id:26,cat:'Snowa WM',code:'SDW-96GW',name:'غسالة 9كيلو ابيض OCTA PLUS',nameEn:'Washer 9kg White OCTA PLUS',price:330,qty:21,total:6930},
+ {id:27,cat:'Tecnogaz WM',code:'WMFL914W2N',name:'غسالة Harmony 9كيلو TECNOGAZ إنفرتر',nameEn:'Harmony Washer 9kg TECNOGAZ',price:286.56,qty:21,total:6018},
+ {id:28,cat:'Tecnogaz WM',code:'WMFL812W2N',name:'غسالة Harmony 8كيلو TECNOGAZ إنفرتر',nameEn:'Harmony Washer 8kg TECNOGAZ',price:250.12,qty:21,total:5253},
+ {id:29,cat:'DAEWOO Ref&Fr',code:'DR-U3391T',name:'مجمدة تون 30قدم تيتانيوم DAEWOO',nameEn:'Freezer 30ft Titanium DAEWOO',price:226.39,qty:18,total:4075},
+ {id:30,cat:'DAEWOO Ref&Fr',code:'DR-O4491T',name:'ثلاجة تون 30قدم تيتانيوم DAEWOO',nameEn:'Fridge 30ft Titanium DAEWOO',price:224.39,qty:18,total:4039},
+ {id:31,cat:'Tecnogas GC',code:'P3X96G5VE',name:'طباخ 5 عيون ستيل Tecnogas P3',nameEn:'5-Eye Steel Cooker P3',price:304,qty:17,total:5168},
+ {id:32,cat:'Tecnogas GC',code:'P3X66G4VE',name:'طباخ 4 عيون ستيل Tecnogas VE',nameEn:'4-Eye Steel Cooker VE',price:304,qty:17,total:5168},
+ {id:33,cat:'DAEWOO Ref&Fr',code:'DR-S6441DI',name:'ثلاجة سايد باي سايد 22قدم رمادي',nameEn:'SxS 22ft Grey DAEWOO',price:405,qty:16,total:6480},
+ {id:34,cat:'DAEWOO Ref&Fr',code:'DR-T5041WH',name:'ثلاجة 17قدم ابيض DAEWOO',nameEn:'Fridge 17ft White DAEWOO',price:300.4,qty:16,total:4806},
+ {id:35,cat:'Daewoo TV',code:'DT-Q6581CN',name:'تلفزيون 65 DAEWOO QLED',nameEn:'TV 65" DAEWOO QLED',price:305,qty:15,total:4575},
+ {id:36,cat:'Tecnogas GC',code:'P1X66G4VC',name:'طباخ 4 عيون ستيل Tecnogas VC',nameEn:'4-Eye Steel Cooker VC',price:304,qty:14,total:4256},
+ {id:37,cat:'DAEWOO Ref&Fr',code:'DR-M7241DI',name:'ثلاجة 25قدم 4أبواب رمادي DAEWOO',nameEn:'4-Door 25ft Grey DAEWOO',price:604,qty:14,total:8456},
+ {id:38,cat:'DAEWOO Ref&Fr',code:'DR-S6441B',name:'ثلاجة سايد باي سايد 22قدم اسود',nameEn:'SxS 22ft Black DAEWOO',price:399,qty:13,total:5187},
+ {id:39,cat:'DAEWOO Ref&Fr',code:'DR-M7241B',name:'ثلاجة 25قدم 4أبواب اسود DAEWOO',nameEn:'4-Door 25ft Black DAEWOO',price:601,qty:11,total:6611},
+ {id:40,cat:'Snowa VC',code:'SVC-L21991BG',name:'مكنسة SNOWA رصاصي',nameEn:'Vacuum Cleaner SNOWA Grey',price:43.34,qty:10,total:433},
+ {id:41,cat:'Snowa Gc',code:'SGC5-VEQ42',name:'طباخ VALENTINO عيون5 ابيض',nameEn:'VALENTINO 5-Eye Cooker White',price:346,qty:8,total:2768},
+ {id:42,cat:'Tecnogaz WM',code:'WMFL914W1N',name:'غسالة KARIZMA 9كيلو TECNOGAZ',nameEn:'KARIZMA Washer 9kg TECNOGAZ',price:286.56,qty:7,total:2006},
+ {id:43,cat:'Tecnogaz WM',code:'WMFL812W1N',name:'غسالة KARIZMA 8كيلو TECNOGAZ',nameEn:'KARIZMA Washer 8kg TECNOGAZ',price:250.12,qty:6,total:1501},
+ {id:44,cat:'Snowa TV',code:'SSD-75SQ15100U',name:'شاشة 75 بوصة SNOWA Smart 4K',nameEn:'75" Smart TV SNOWA 4K',price:555,qty:6,total:3330},
+ {id:45,cat:'Daewoo TV',code:'DSL-75SQ8000EU',name:'شاشة 75 بوصة Daewoo Smart 4K',nameEn:'75" Smart TV Daewoo 4K',price:544,qty:6,total:3264},
+ {id:46,cat:'Daewoo WM',code:'DW-TI1223S',name:'غسالة باب علوي 12كيلو سيلفر Daewoo',nameEn:'Top Load 12kg Silver Daewoo',price:179.29,qty:5,total:896},
+ {id:47,cat:'Snowa Ref&Fr',code:'SN8-2034GW',name:'ثلاجة HARMONY سايد 32قدم ابيض',nameEn:'HARMONY SxS 32ft White',price:730.06,qty:4,total:2920},
+ {id:48,cat:'Snowa Ref&Fr',code:'SN61019GW',name:'ثلاجة SN61019GW ابيض SNOWA',nameEn:'Fridge SN61019GW White SNOWA',price:368,qty:4,total:1472},
+ {id:49,cat:'DAEWOO DW',code:'DD-F1291S',name:'غسالة صحون 12 نفر سيلفر DAEWOO',nameEn:'Dishwasher 12P Silver DAEWOO',price:171.93,qty:3,total:516},
+ {id:50,cat:'Snowa Ref&Fr',code:'SN8-2035GW',name:'ثلاجة HYPER سايد 36قدم ابيض',nameEn:'HYPER SxS 36ft White',price:788.06,qty:3,total:2364},
+ {id:51,cat:'Snowa Ref&Fr',code:'SN8-2032GW',name:'ثلاجة HYPER سايد 32قدم ابيض',nameEn:'HYPER SxS 32ft White',price:764.29,qty:2,total:1529},
+ {id:52,cat:'DAEWOO DW',code:'DD-F1492S',name:'غسالة صحون 14 نفر سيلفر DAEWOO',nameEn:'Dishwasher 14P Silver DAEWOO',price:193.63,qty:2,total:387},
+ {id:53,cat:'DAEWOO DW',code:'DD-F1492DI',name:'غسالة صحون 14 نفر رمادي DAEWOO',nameEn:'Dishwasher 14P Grey DAEWOO',price:194,qty:2,total:388},
+ {id:54,cat:'Snowa Gc',code:'SGC5-REQ41',name:'طباخ ROMINA عيون5 احمر SNOWA',nameEn:'ROMINA 5-Eye Cooker Red',price:257,qty:2,total:514},
+ {id:55,cat:'Daewoo WM',code:'DWD-FZ914W',name:'غسالة 9كيلو ابيض ZEN LIFE Daewoo',nameEn:'Washer 9kg White ZEN LIFE',price:307,qty:2,total:614},
+ {id:56,cat:'Daewoo WM',code:'DW-TI1822DG',name:'غسالة باب علوي 18كيلو رمادي Daewoo',nameEn:'Top Load 18kg Grey Daewoo',price:242.92,qty:2,total:486},
+ {id:57,cat:'Daewoo AC',code:'DAC-2400CH',name:'قطعة خارجية سبالت طنين Daewoo',nameEn:'Outdoor AC 1.5T Daewoo',price:0,qty:1,total:0},
+ {id:58,cat:'Daewoo AC',code:'Dae-IN',name:'قطعة داخلية سبالت طن عادي',nameEn:'Indoor AC 1T Standard',price:0,qty:1,total:0},
+ {id:59,cat:'DAEWOO Ref&Fr',code:'DR-T6441WH',name:'ثلاجة 22قدم ابيض DAEWOO',nameEn:'Fridge 22ft White DAEWOO',price:326,qty:1,total:326},
+ {id:60,cat:'Daewoo TV',code:'DSL-43SQ7000E',name:'شاشة FHD 43 بوصة Daewoo Smart',nameEn:'FHD 43" Smart TV Daewoo',price:160,qty:1,total:160},
+ {id:61,cat:'Tecnogas GC',code:'N3X96G5VE',name:'طباخ 5 عيون ستيل Tecnogas N3',nameEn:'5-Eye Steel Cooker N3',price:344,qty:1,total:344},
+ {id:62,cat:'Daewoo TV',code:'DSL-65SQ8000EU',name:'شاشة 65 بوصة Daewoo Smart 4K',nameEn:'65" Smart TV Daewoo 4K',price:311,qty:1,total:311},
+ {id:63,cat:'DAEWOO Ref&Fr',code:'DFRS-P36D3SS',name:'ثلاجة PRIME سايد 3أبواب سيلفر',nameEn:'PRIME SxS 3-Door Silver',price:895.57,qty:1,total:896},
+ {id:64,cat:'DAEWOO Ref&Fr',code:'DFRS-P36D3MW',name:'ثلاجة PRIME سايد 3أبواب ابيض',nameEn:'PRIME SxS 3-Door White',price:978.56,qty:1,total:979},
+ {id:65,cat:'Daewoo WM',code:'DWD-FZ914S',name:'غسالة 9كيلو سيلفر ZEN LIFE Daewoo',nameEn:'Washer 9kg Silver ZEN LIFE',price:317,qty:1,total:317},
+ {id:66,cat:'Snowa Ref&Fr',code:'EF1800-SS',name:'مجمدة TWIN سيلفر SNOWA',nameEn:'Freezer TWIN Silver SNOWA',price:373.78,qty:1,total:374},
+ {id:67,cat:'Daewoo AC',code:'-',name:'قطعة داخلية سبالت طن ونص إنفرتر',nameEn:'Indoor AC 1.5T Inverter',price:0,qty:1,total:0},
+ {id:68,cat:'DAEWOO DW',code:'DD-F1291W',name:'غسالة صحون 12 نفر ابيض DAEWOO',nameEn:'Dishwasher 12P White DAEWOO',price:171.93,qty:1,total:172},
+ {id:69,cat:'DAEWOO Ref&Fr',code:'DFRS-P32D3MW',name:'ثلاجة PRIME سايد 32قدم 3أبواب ابيض',nameEn:'PRIME SxS 32ft 3-Door White',price:868.11,qty:1,total:868},
+ {id:70,cat:'DAEWOO Ref&Fr',code:'DFRS-P36D2SS',name:'ثلاجة PRIME سايد بابين سيلفر',nameEn:'PRIME SxS 2-Door Silver',price:821.12,qty:1,total:821},
+ {id:71,cat:'Snowa Ref&Fr',code:'STM-2700SW',name:'ثلاجة MORANO ابيض SNOWA',nameEn:'Fridge MORANO White SNOWA',price:426.33,qty:1,total:426},
+ {id:72,cat:'Snowa Ref&Fr',code:'SN8-2035SS',name:'ثلاجة HYPER سايد 36قدم سيلفر',nameEn:'HYPER SxS 36ft Silver',price:798.06,qty:1,total:798},
+ {id:73,cat:'Snowa Ref&Fr',code:'SN8-2028GW',name:'ثلاجة HARMONY سايد 27قدم ابيض',nameEn:'HARMONY SxS 27ft White',price:620.71,qty:1,total:621},
+ {id:74,cat:'Snowa Ref&Fr',code:'SN8-3035SS',name:'ثلاجة GALLERY سايد 3أبواب 36قدم سيلفر',nameEn:'GALLERY SxS 3-Door 36ft Silver',price:900.91,qty:1,total:901},
+ {id:75,cat:'Snowa Ref&Fr',code:'SN8-3035GW',name:'ثلاجة GALLERY سايد 3أبواب 36قدم ابيض',nameEn:'GALLERY SxS 3-Door 36ft White',price:882.34,qty:1,total:882},
+ {id:76,cat:'Snowa Ref&Fr',code:'SN4-2023SW',name:'ثلاجة 660PLUS BMF 28قدم ابيض',nameEn:'Fridge 660PLUS BMF 28ft White',price:395.65,qty:1,total:396},
+ {id:77,cat:'DAEWOO Ref&Fr',code:'DFRS-PX32D2SS',name:'ثلاجة PARAMO MID سايد 32قدم سيلفر',nameEn:'PARAMO MID SxS 32ft Silver',price:777.55,qty:1,total:778},
+ {id:78,cat:'Snowa Ref&Fr',code:'SN8-3032GW',name:'ثلاجة GALLERY سايد 3أبواب 32قدم ابيض',nameEn:'GALLERY SxS 3-Door 32ft White',price:858.42,qty:1,total:858},
+];
+
+/* ─ مخزن المعرض ─ */
+const DATA_SHOW = [
+ {id:1,cat:'Daewoo AC',code:'DAC-1200ICH',name:'سبالت إنفرتر تحكم حار وبارد طن Daewoo',nameEn:'Inverter AC 1T Daewoo',price:255,qty:2,total:510},
+ {id:2,cat:'Daewoo AC',code:'DAC-1800ICH',name:'سبالت إنفرتر تحكم حار وبارد طن ونص Daewoo',nameEn:'Inverter AC 1.5T Daewoo',price:345,qty:1,total:345},
+ {id:3,cat:'Daewoo AC',code:'DAC-1800CH',name:'سبالت عادي حار وبارد طن ونص Daewoo',nameEn:'Standard AC 1.5T Daewoo',price:304,qty:2,total:608},
+ {id:4,cat:'DAEWOO DW',code:'DD-F1291W',name:'غسالة صحون 12نفر ابيض DAEWOO',nameEn:'Dishwasher 12P White DAEWOO',price:171.93,qty:1,total:171.93},
+ {id:5,cat:'DAEWOO DW',code:'DD-F1492DI',name:'غسالة صحون 14نفر رمادي DAEWOO',nameEn:'Dishwasher 14P Grey DAEWOO',price:194,qty:1,total:194},
+ {id:6,cat:'DAEWOO Ref&Fr',code:'DR-T3040IS',name:'ثلاجة 10قدم سيلفر DAEWOO',nameEn:'Fridge 10ft Silver DAEWOO',price:170,qty:1,total:170},
+ {id:7,cat:'DAEWOO Ref&Fr',code:'DR-T5041IS',name:'ثلاجة 17قدم سيلفر DAEWOO',nameEn:'Fridge 17ft Silver DAEWOO',price:300.4,qty:1,total:300.4},
+ {id:8,cat:'DAEWOO Ref&Fr',code:'DR-T6891SS',name:'ثلاجة 20قدم سيلفر DAEWOO',nameEn:'Fridge 20ft Silver DAEWOO',price:349,qty:1,total:349},
+ {id:9,cat:'DAEWOO Ref&Fr',code:'DR-T6441IS',name:'ثلاجة 22قدم سيلفر DAEWOO',nameEn:'Fridge 22ft Silver DAEWOO',price:326,qty:1,total:326},
+ {id:10,cat:'DAEWOO Ref&Fr',code:'DFBM-42GW',name:'ثلاجة 660PLUS BMF 28قدم ابيض DAEWOO',nameEn:'Fridge 660PLUS BMF 28ft White DAEWOO',price:395.56,qty:1,total:395.56},
+ {id:11,cat:'DAEWOO Ref&Fr',code:'DFRS-P36D2MW',name:'ثلاجة PRIME سايد 36قدم بابين ابيض DAEWOO',nameEn:'PRIME SxS 36ft 2-Door White DAEWOO',price:810.01,qty:1,total:810.01},
+ {id:12,cat:'DAEWOO Ref&Fr',code:'DR-O4491T',name:'ثلاجة تون 30قدم تيتانيوم Daewoo',nameEn:'Fridge 30ft Titanium DAEWOO',price:224.39,qty:1,total:224.39},
+ {id:13,cat:'DAEWOO Ref&Fr',code:'DR-S6441B',name:'ثلاجة سايد باي سايد 22قدم اسود DAEWOO',nameEn:'SxS 22ft Black DAEWOO',price:399,qty:1,total:399},
+ {id:14,cat:'DAEWOO Ref&Fr',code:'DR-M7241B',name:'ثلاجة 25قدم 4أبواب اسود DAEWOO',nameEn:'4-Door 25ft Black DAEWOO',price:601,qty:1,total:601},
+ {id:15,cat:'DAEWOO Ref&Fr',code:'DSD-F950SS',name:'مجمدة TWIN سيلفر DAEWOO',nameEn:'Freezer TWIN Silver DAEWOO',price:413.07,qty:1,total:413.07},
+ {id:16,cat:'DAEWOO Ref&Fr',code:'DR-U3391T',name:'مجمدة تون 30قدم تيتانيوم DAEWOO',nameEn:'Freezer 30ft Titanium DAEWOO',price:226.39,qty:1,total:226.39},
+ {id:17,cat:'Daewoo TV',code:'DT-Q5581CN',name:'تلفزيون DAEWOO QLED 55 GOOGLE TV',nameEn:'TV 55" DAEWOO QLED Google TV',price:206,qty:223,total:45938},
+ {id:18,cat:'Daewoo TV',code:'DSL-50SQ7000EU',name:'شاشة 4K UHD 50 بوصة Daewoo Smart',nameEn:'4K UHD 50" Smart TV Daewoo',price:198,qty:1,total:198},
+ {id:19,cat:'Daewoo TV',code:'DSL-75SQ8000EU',name:'شاشة 4K UHD 75 بوصة Daewoo Smart',nameEn:'4K UHD 75" Smart TV Daewoo',price:544,qty:1,total:544},
+ {id:20,cat:'Daewoo TV',code:'DSL-43SQ7000E',name:'شاشة FHD 43 بوصة Daewoo Smart',nameEn:'FHD 43" Smart TV Daewoo',price:160,qty:1,total:160},
+ {id:21,cat:'Daewoo WM',code:'DWD-FZ914W',name:'غسالة ZEN LIFE 9كيلو ابيض DAEWOO',nameEn:'Washer ZEN LIFE 9kg White DAEWOO',price:307,qty:1,total:307},
+ {id:22,cat:'Daewoo WM',code:'DWD-FZ914S',name:'غسالة ZEN LIFE 9كيلو سيلفر DAEWOO',nameEn:'Washer ZEN LIFE 9kg Silver DAEWOO',price:317,qty:1,total:317},
+ {id:23,cat:'Daewoo WM',code:'DW-T1822B',name:'غسالة باب علوي 18كيلو اسود DAEWOO',nameEn:'Top Load 18kg Black DAEWOO',price:242.92,qty:1,total:242.92},
+ {id:24,cat:'Snowa CHP',code:'SS-C591B',name:'محضرة CHOOPER Snowa',nameEn:'Food Processor SNOWA',price:11.74,qty:8,total:93.92},
+ {id:25,cat:'Snowa Gc',code:'SGC5-REQ21',name:'طباخ ROMINA عيون5 ابيض SNOWA',nameEn:'ROMINA 5-Eye Cooker White',price:320,qty:1,total:320},
+ {id:26,cat:'Snowa Gc',code:'SGC5-REQ11',name:'طباخ ROMINA عيون5 استيل SNOWA',nameEn:'ROMINA 5-Eye Cooker Steel',price:259.77,qty:1,total:259.77},
+ {id:27,cat:'Snowa Gc',code:'SGC5-REQ31',name:'طباخ ROMINA عيون5 اسود SNOWA',nameEn:'ROMINA 5-Eye Cooker Black',price:257,qty:2,total:514},
+ {id:28,cat:'Snowa Gc',code:'SGC5-REQ51',name:'طباخ ROMINA عيون5 بيجي SNOWA',nameEn:'ROMINA 5-Eye Cooker Beige',price:346,qty:1,total:346},
+ {id:29,cat:'Snowa Gc',code:'SGC5-VEQ41',name:'طباخ VALENTINO عيون5 استيل SNOWA',nameEn:'VALENTINO 5-Eye Cooker Steel',price:320,qty:1,total:320},
+ {id:30,cat:'Snowa Gc',code:'SGC5-VEQ45',name:'طباخ VALENTINO عيون5 بيجي SNOWA',nameEn:'VALENTINO 5-Eye Cooker Beige',price:310,qty:1,total:310},
+ {id:31,cat:'Snowa Gc',code:'SHB5-100',name:'طباخ منضدي عيون5 SNOWA SH100',nameEn:'Tabletop Cooker SH100',price:95,qty:1,total:95},
+ {id:32,cat:'Snowa Gc',code:'SHB5-102',name:'طباخ منضدي عيون5 SNOWA SH102',nameEn:'Tabletop Cooker SH102',price:85,qty:2,total:170},
+ {id:33,cat:'Snowa Ref&Fr',code:'SN4-2023SW',name:'ثلاجة 660PLUS BMF 28قدم ابيض SNOWA',nameEn:'Fridge 660PLUS BMF 28ft White',price:395.65,qty:1,total:395.65},
+ {id:34,cat:'Snowa Ref&Fr',code:'SN8-2028GW',name:'ثلاجة HARMONY سايد 27قدم ابيض SNOWA',nameEn:'HARMONY SxS 27ft White SNOWA',price:620.71,qty:1,total:620.71},
+ {id:35,cat:'Snowa Ref&Fr',code:'SN8-2028SS',name:'ثلاجة HARMONY سايد 27قدم سيلفر SNOWA',nameEn:'HARMONY SxS 27ft Silver SNOWA',price:633.27,qty:1,total:633.27},
+ {id:36,cat:'Snowa Ref&Fr',code:'SN8-2034SS',name:'ثلاجة HARMONY سايد 32قدم سيلفر SNOWA',nameEn:'HARMONY SxS 32ft Silver SNOWA',price:675.56,qty:1,total:675.56},
+ {id:37,cat:'Snowa Ref&Fr',code:'SN8-2032GW',name:'ثلاجة HYPER سايد 32قدم ابيض SNOWA',nameEn:'HYPER SxS 32ft White SNOWA',price:764.29,qty:2,total:1528.58},
+ {id:38,cat:'Snowa Ref&Fr',code:'SN8-2035SS',name:'ثلاجة HYPER سايد 36قدم سيلفر SNOWA',nameEn:'HYPER SxS 36ft Silver SNOWA',price:798.06,qty:1,total:798.06},
+ {id:39,cat:'Snowa Ref&Fr',code:'SBM-2600SS',name:'ثلاجة PERFECT BMF 28قدم سيلفر SNOWA',nameEn:'PERFECT BMF 28ft Silver SNOWA',price:590,qty:1,total:590},
+ {id:40,cat:'Snowa SDA',code:'SS-H1091AB',name:'خلاط يدوي SNOWA اسود',nameEn:'Hand Mixer SNOWA Black',price:22.89,qty:9,total:206.01},
+ {id:41,cat:'Snowa SDA',code:'SHB-P500BK',name:'خلاط يدوي اسود SNOWA',nameEn:'Hand Blender SNOWA Black',price:18.24,qty:1,total:18.24},
+ {id:42,cat:'Snowa SDA',code:'SMO-FM30GCB',name:'ميكروويف 30لتر اسود SNOWA',nameEn:'Microwave 30L Black SNOWA',price:205.24,qty:1,total:205.24},
+ {id:43,cat:'Snowa SDA',code:'SMO-FM32GCS',name:'ميكروويف 32لتر سيلفر SNOWA',nameEn:'Microwave 32L Silver SNOWA',price:220.06,qty:2,total:440.12},
+ {id:44,cat:'Snowa SDA',code:'SMO-FM42GS',name:'ميكروويف 42لتر اسود SNOWA',nameEn:'Microwave 42L Black SNOWA',price:278.21,qty:1,total:278.21},
+ {id:45,cat:'Snowa TM',code:'SS-TM1891GB',name:'صانع الشاي TEA MAKER SNOWA',nameEn:'Tea Maker SNOWA',price:13.74,qty:2,total:27.48},
+ {id:46,cat:'Snowa TV',code:'SSD-43SQ14100',name:'شاشة FHD 43 بوصة SNOWA Smart',nameEn:'FHD 43" Smart TV SNOWA',price:158.56,qty:1,total:158.56},
+ {id:47,cat:'Snowa VC',code:'SVC-L21991BB',name:'مكنسة SNOWA ازرق',nameEn:'Vacuum Cleaner SNOWA Blue',price:43.34,qty:11,total:476.74},
+ {id:48,cat:'Snowa VC',code:'SVC-L21991BG',name:'مكنسة SNOWA رصاصي',nameEn:'Vacuum Cleaner SNOWA Grey',price:43.34,qty:10,total:433.4},
+ {id:49,cat:'Snowa WM',code:'SDW-96GW',name:'غسالة OCTA PLUS 9كيلو ابيض SNOWA',nameEn:'OCTA PLUS 9kg White SNOWA',price:330,qty:1,total:330},
+ {id:50,cat:'Snowa WM',code:'SDW-96SS',name:'غسالة OCTA PLUS 9كيلو سيلفر SNOWA',nameEn:'OCTA PLUS 9kg Silver SNOWA',price:297.66,qty:1,total:297.66},
+ {id:51,cat:'tecnogas gc',code:'P2X96G5VC',name:'طباخ 5 عيون ستيل Tecnogas P2',nameEn:'5-Eye Steel Cooker Tecnogas P2',price:344,qty:1,total:344},
+ {id:52,cat:'tecnogas gc',code:'N3X96G5VE',name:'طباخ 5 عيون ستيل Tecnogas N3',nameEn:'5-Eye Steel Cooker Tecnogas N3',price:344,qty:1,total:344},
+ {id:53,cat:'Tecnogaz WM',code:'WMFL812W1N',name:'غسالة KARIZMA 8كيلو TECNOGAZ إنفرتر',nameEn:'KARIZMA Washer 8kg TECNOGAZ',price:250.12,qty:28,total:7003.32},
+];
+
+/* ─ مخزن الصيانة ─ */
+const DATA_MAINT = [
+ {id:1,cat:'BOST',code:'BRT132-10',name:'ثلاجة TMF 14 قدم BOST',nameEn:'Fridge TMF 14ft BOST',price:264,qty:1,total:264},
+ {id:2,cat:'Daewoo AC',code:'DAC-2400ICH',name:'سبالت إنفرتر تحكم حار وبارد طن ونص',nameEn:'Inverter AC Control 1.5T',price:440,qty:1,total:440},
+ {id:3,cat:'Daewoo AC',code:'DAC-2400CH',name:'سبالت عادي حار وبارد طنين Daewoo',nameEn:'Standard AC 2T Daewoo',price:385,qty:1,total:385},
+ {id:4,cat:'Daewoo TV',code:'DT-Q5581CN',name:'تلفزيون DAEWOO QLED 55 بوصة',nameEn:'TV 55" DAEWOO QLED',price:206,qty:200,total:41200},
+ {id:5,cat:'Daewoo TV',code:'DSL-50SQ7000EU',name:'شاشة 4K UHD 50 بوصة Daewoo Smart',nameEn:'4K UHD 50" Smart TV Daewoo',price:198,qty:1,total:198},
+ {id:6,cat:'Daewoo TV',code:'DSL-55SQ7000EU',name:'شاشة 4K UHD 55 بوصة Daewoo Smart',nameEn:'4K UHD 55" Smart TV Daewoo',price:232,qty:1,total:232},
+ {id:7,cat:'Daewoo TV',code:'DSL-43SQ7000E',name:'شاشة FHD 43 بوصة Daewoo Smart',nameEn:'FHD 43" Smart TV Daewoo',price:160,qty:2,total:320},
+ {id:8,cat:'Snowa Gc',code:'SGC5-VEQ41',name:'طباخ VALENTINO عيون5 استيل SNOWA',nameEn:'VALENTINO 5-Eye Cooker Steel',price:320,qty:1,total:320},
+ {id:9,cat:'Snowa Ref&Fr',code:'SN4-2023SW',name:'ثلاجة 660PLUS BMF 28قدم ابيض SNOWA',nameEn:'Fridge 660PLUS BMF 28ft White',price:395.65,qty:1,total:395.65},
+ {id:10,cat:'Snowa WM',code:'SDW-96GW',name:'غسالة OCTA PLUS 9كيلو ابيض SNOWA',nameEn:'OCTA PLUS 9kg White SNOWA',price:330,qty:1,total:330},
+ {id:11,cat:'Snowa WM',code:'SDW-96SS',name:'غسالة OCTA PLUS 9كيلو سيلفر SNOWA',nameEn:'OCTA PLUS 9kg Silver SNOWA',price:297.66,qty:1,total:297.66},
+];
+
+/* ═══════════════════════════════════════════════
+   STATE
+═══════════════════════════════════════════════ */
+let CUR_WH = 'main';
+let LANG = 'ar';
+let tFilter = 'all', tSC = 'qty', tSA = false;
+let chartTopQ, chartTopV, chartCatQ, chartCatV, chartDonutV, chartUrg, chartCompV, chartCompQ;
+
+function curData(){ return CUR_WH==='main'?DATA_MAIN:CUR_WH==='show'?DATA_SHOW:DATA_MAINT; }
+function fmt(n){ return '$'+Math.round(n).toLocaleString('en'); }
+function pname(p){ return LANG==='en'?p.nameEn:p.name; }
+function cfont(){ return{family:LANG==='en'?'Inter':'Cairo',size:10}; }
+function catColor(c){ return CATS_COLORS[c]||'#888'; }
+
+function sl(q){
+ if(q>=200)return{l:LANG==='en'?'Ample':'وفير',c:'#3fb950',b:'rgba(63,185,80,.12)'};
+ if(q>=50)return{l:LANG==='en'?'Good':'جيد',c:'#d29922',b:'rgba(210,153,34,.12)'};
+ if(q>=10)return{l:LANG==='en'?'Medium':'متوسط',c:'#388bfd',b:'rgba(56,139,253,.12)'};
+ if(q>=3)return{l:LANG==='en'?'Low':'منخفض',c:'#fb923c',b:'rgba(251,146,60,.12)'};
+ return{l:LANG==='en'?'Critical':'حرج',c:'#f85149',b:'rgba(248,81,73,.12)'};
+}
+
+function catData(data){
+ const m={};
+ data.forEach(p=>{ if(!m[p.cat])m[p.cat]={qty:0,val:0}; m[p.cat].qty+=p.qty; m[p.cat].val+=p.total; });
+ return m;
+}
+
+/* ═══════════════════════════════════════════════
+   WAREHOUSE SWITCH
+═══════════════════════════════════════════════ */
+const WH_CONFIG = {
+ main:{ name:{ar:'المخزن الأساسي',en:'Main Warehouse'}, color:'#388bfd', icon:'🏭', products:78, cats:15, units:3560, value:687510, badge:'4' },
+ show:{ name:{ar:'مخزن المعرض',en:'Showroom Warehouse'}, color:'#a78bfa', icon:'🎪', products:53, cats:14, units:374, value:71984, badge:'3' },
+ maint:{ name:{ar:'مخزن الصيانة',en:'Maintenance Warehouse'}, color:'#d29922', icon:'🔧', products:11, cats:6, units:209, value:44382, badge:'2' }
+};
+
+function switchWH(wh, btn){
+ CUR_WH = wh;
+ tFilter = 'all';
+
+ // sidebar tabs
+ document.querySelectorAll('.ws-tab').forEach(b=>{ b.classList.remove('active-main','active-show','active-maint'); });
+ btn.classList.add('active-'+wh);
+
+ const cfg = WH_CONFIG[wh];
+ const nm = LANG==='en'?cfg.name.en:cfg.name.ar;
+
+ // indicator
+ document.getElementById('wiBar').style.background = `color-mix(in srgb,${cfg.color} 10%,transparent)`;
+ document.getElementById('wiBar').style.color = cfg.color;
+ document.getElementById('wiName').textContent = nm;
+
+ // nav section
+ document.getElementById('navSecLabel').textContent = nm;
+
+ // topbar meta
+ document.getElementById('topMeta').innerHTML = `${nm} · ${cfg.products} ${LANG==='en'?'products':'منتج'} · <span class="vg">${fmt(cfg.value)}</span>`;
+
+ // banner
+ document.getElementById('whDot').style.background = cfg.color;
+ document.getElementById('whName').style.color = cfg.color;
+ document.getElementById('whName').textContent = nm;
+ document.getElementById('whStats').innerHTML = `${cfg.products} ${LANG==='en'?'products':'منتج'} · ${cfg.units.toLocaleString()} ${LANG==='en'?'units':'وحدة'} · <span class="vg">${fmt(cfg.value)}</span>`;
+
+ // alert badge
+ document.getElementById('alertBadge').textContent = cfg.badge;
+
+ // nav item colors
+ document.querySelectorAll('.nav-item').forEach(n=>{
+  n.classList.remove('active-show-nav','active-maint-nav');
+ });
+
+ // re-render active page
+ const activePage = document.querySelector('.page.active');
+ if(activePage){
+  const pid = activePage.id.replace('page-','');
+  renderPageContent(pid);
+ }
+
+ // build cat filter tabs
+ buildCatTabs();
+}
+
+function buildCatTabs(){
+ const data = curData();
+ const cats = [...new Set(data.map(p=>p.cat))];
+ const wh = CUR_WH;
+ const tabs = document.getElementById('pTabs');
+ const allLabel = LANG==='en'?`All (${data.length})`:`الكل (${data.length})`;
+ let html = `<button class="tab active" onclick="filterProducts('all',this)" style="--tc:#388bfd">${allLabel}</button>`;
+ cats.forEach(cat=>{
+  const col = catColor(cat);
+  html += `<button class="tab" onclick="filterProducts('${cat}',this)" style="--tc:${col}">${cat}</button>`;
+ });
+ tabs.innerHTML = html;
+}
+
+function quickFilter(cat){
+ tFilter = cat;
+ document.querySelectorAll('#pTabs .tab').forEach(t=>t.classList.remove('active'));
+ renderTable();
+}
+
+/* ═══════════════════════════════════════════════
+   NAVIGATION
+═══════════════════════════════════════════════ */
+function showPage(id, el){
+ document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+ document.getElementById('page-'+id).classList.add('active');
+ document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
+ if(el){ el.classList.add('active'); }
+ renderPageContent(id);
+}
+
+function renderPageContent(id){
+ const cfg = WH_CONFIG[CUR_WH];
+ const nm = LANG==='en'?cfg.name.en:cfg.name.ar;
+ const data = curData();
+ const TQ = data.reduce((a,p)=>a+p.qty,0);
+ const TV = data.reduce((a,p)=>a+p.total,0);
+
+ if(id==='products'){
+  const tl = LANG==='en'?`Products — ${nm}`:`المنتجات — ${nm}`;
+  document.getElementById('prodTitle').textContent = tl;
+  document.getElementById('prodSub').textContent = `${data.length} ${LANG==='en'?'products with prices, quantities and totals':'منتج مع الأسعار والكميات والمجاميع'}`;
+  buildCatTabs();
+  renderTable();
+  initProdCharts();
+ }
+ if(id==='categories') renderCats();
+ if(id==='finance') renderFinance();
+ if(id==='alerts') renderAlerts();
+ if(id==='priorities') renderPri();
+ if(id==='overview') initCompareCharts();
+}
+
+/* ═══════════════════════════════════════════════
+   PRODUCTS TABLE
+═══════════════════════════════════════════════ */
+function filterProducts(f, btn){
+ tFilter = f;
+ document.querySelectorAll('#pTabs .tab').forEach(t=>t.classList.remove('active'));
+ if(btn) btn.classList.add('active');
+ renderTable();
+}
+function tSort(col){ if(tSC===col)tSA=!tSA; else{tSC=col;tSA=false;} renderTable(); }
+
+function renderTable(){
+ const data = curData();
+ const s = (document.getElementById('srch')||{}).value||'';
+ let rows = tFilter==='all'?data:data.filter(p=>p.cat===tFilter);
+ if(s) rows = rows.filter(p=>p.name.includes(s)||p.nameEn.toLowerCase().includes(s.toLowerCase())||p.code.includes(s));
+ rows = [...rows].sort((a,b)=>{
+  let va=a[tSC],vb=b[tSC];
+  if(typeof va==='string') return tSA?va.localeCompare(vb):vb.localeCompare(va);
+  return tSA?va-vb:vb-va;
+ });
+ const TQ = rows.reduce((a,p)=>a+p.qty,0);
+ const TV = rows.reduce((a,p)=>a+p.total,0);
+ const maxQ = Math.max(...data.map(p=>p.qty),1);
+ const tbody = document.getElementById('pBody');
+ tbody.innerHTML = '';
+ rows.forEach((p,i)=>{
+  const s2=sl(p.qty), col=catColor(p.cat);
+  const bw = Math.round(p.qty/maxQ*100);
+  const nm = pname(p);
+  tbody.innerHTML += `<tr>
+   <td style="color:var(--text3)">${i+1}</td>
+   <td><span class="tmain">${nm.length>28?nm.slice(0,28)+'…':nm}</span><br><span class="tmod">${p.code}</span></td>
+   <td><span class="tmod">${p.code}</span></td>
+   <td><span class="badge" style="background:${col}18;color:${col}">${p.cat}</span></td>
+   <td><span class="vg">${p.price>0?'$'+p.price.toFixed(2):'—'}</span></td>
+   <td><strong style="color:${col}">${p.qty.toLocaleString()}</strong></td>
+   <td><span class="vg">${p.total>0?fmt(p.total):'—'}</span></td>
+   <td><div class="mbar"><div class="mfill" style="width:${bw}%;background:${col}"></div></div>${bw}%</td>
+   <td><span class="badge" style="background:${s2.b};color:${s2.c}">${s2.l}</span></td>
+  </tr>`;
+ });
+ const lbl = LANG==='en'?`${rows.length} products · Qty: ${TQ.toLocaleString()} · Value: `:`${rows.length} منتج · الكمية: ${TQ.toLocaleString()} · القيمة: `;
+ document.getElementById('tFoot').innerHTML = lbl + `<span class="vg">${fmt(TV)}</span>`;
+}
+
+function initProdCharts(){
+ if(chartTopQ) chartTopQ.destroy();
+ if(chartTopV) chartTopV.destroy();
+ const data = curData();
+ const top12Q = [...data].sort((a,b)=>b.qty-a.qty).slice(0,12);
+ const top12V = [...data].sort((a,b)=>b.total-a.total).slice(0,12);
+ const mkChart = (canvasId, rows, key) => {
+  const ctx = document.getElementById(canvasId).getContext('2d');
+  return new Chart(ctx,{type:'bar',
+   data:{labels:rows.map(p=>{const n=pname(p);return n.length>14?n.slice(0,14)+'…':n;}),
+    datasets:[{data:rows.map(p=>p[key]),backgroundColor:rows.map(p=>catColor(p.cat)+'99'),borderColor:rows.map(p=>catColor(p.cat)),borderWidth:1,borderRadius:4}]},
+   options:{responsive:true,maintainAspectRatio:false,indexAxis:'y',plugins:{legend:{display:false}},
+    scales:{x:{ticks:{color:'#8b949e',font:cfont()},grid:{color:'rgba(255,255,255,0.04)'}},y:{ticks:{color:'#8b949e',font:cfont()},grid:{color:'rgba(255,255,255,0.04)'}}}}});
+ };
+ chartTopQ = mkChart('cTopQ', top12Q, 'qty');
+ chartTopV = mkChart('cTopV', top12V, 'total');
+}
+
+/* ═══════════════════════════════════════════════
+   CATEGORIES
+═══════════════════════════════════════════════ */
+function renderCats(){
+ const data = curData();
+ const cd = catData(data);
+ const cfg = WH_CONFIG[CUR_WH];
+ const nm = LANG==='en'?cfg.name.en:cfg.name.ar;
+ const sorted = Object.entries(cd).sort((a,b)=>b[1].qty-a[1].qty);
+ const TQ = data.reduce((a,p)=>a+p.qty,0);
+ const TV = data.reduce((a,p)=>a+p.total,0);
+ document.getElementById('catTitle').textContent = (LANG==='en'?`Categories — `:`تحليل الفئات — `)+nm;
+ document.getElementById('catSub').textContent = `${sorted.length} ${LANG==='en'?'categories':'فئة'}`;
+
+ // KPIs
+ const kr = document.getElementById('catKpis'); kr.innerHTML='';
+ sorted.slice(0,5).forEach(([cat,d])=>{
+  const col = catColor(cat);
+  kr.innerHTML += `<div class="kpi" style="--ka:${col}"><div class="kpi-lbl">${cat}</div>
+   <div class="kpi-val" style="color:${col};font-size:18px">${d.qty.toLocaleString()}</div>
+   <div class="kpi-sub">${fmt(d.val)}</div></div>`;
+ });
+
+ if(chartCatQ) chartCatQ.destroy();
+ if(chartCatV) chartCatV.destroy();
+ const labels = sorted.map(([c])=>c);
+ const qv = sorted.map(([,d])=>d.qty);
+ const vv = sorted.map(([,d])=>d.val);
+ const cols = labels.map(l=>catColor(l));
+ const bOpts = (vals, isV) => ({type:'bar',data:{labels,datasets:[{data:vals,backgroundColor:cols.map(c=>c+'99'),borderColor:cols,borderWidth:1,borderRadius:5}]},
+  options:{responsive:true,maintainAspectRatio:false,indexAxis:'y',plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>isV?fmt(c.parsed):c.parsed.toLocaleString()}}},
+   scales:{x:{ticks:{color:'#8b949e',font:cfont(),callback:v=>isV?fmt(v):v},grid:{color:'rgba(255,255,255,0.04)'}},y:{ticks:{color:'#8b949e',font:cfont()},grid:{color:'rgba(255,255,255,0.04)'}}}}});
+ chartCatQ = new Chart(document.getElementById('cCatQ').getContext('2d'), bOpts(qv,false));
+ chartCatV = new Chart(document.getElementById('cCatV').getContext('2d'), bOpts(vv,true));
+
+ const det = document.getElementById('catDetail'); det.innerHTML='';
+ sorted.forEach(([cat,d])=>{
+  const col = catColor(cat);
+  const prods = data.filter(p=>p.cat===cat);
+  const qp = (d.qty/TQ*100).toFixed(1), vp = (d.val/TV*100).toFixed(1);
+  det.innerHTML += `<div class="prow">
+   <div style="width:9px;height:36px;border-radius:3px;background:${col};flex-shrink:0"></div>
+   <div style="flex:1"><div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:1px">${cat}</div>
+   <div style="font-size:9.5px;color:var(--text3)">${prods.length} ${LANG==='en'?'products':'منتج'}</div></div>
+   <div style="text-align:left;min-width:70px"><div style="font-size:15px;font-weight:900;color:${col}">${d.qty.toLocaleString()}</div>
+   <div style="font-size:9.5px;color:var(--text3)">${qp}%</div></div>
+   <div style="text-align:left;min-width:80px"><div style="font-size:13px;font-weight:700;color:var(--amber-l)">${fmt(d.val)}</div>
+   <div style="font-size:9.5px;color:var(--text3)">${vp}%</div></div>
+  </div>`;
+ });
+}
+
+/* ═══════════════════════════════════════════════
+   FINANCE
+═══════════════════════════════════════════════ */
+function renderFinance(){
+ const data = curData();
+ const cd = catData(data);
+ const cfg = WH_CONFIG[CUR_WH];
+ const nm = LANG==='en'?cfg.name.en:cfg.name.ar;
+ const TV = data.reduce((a,p)=>a+p.total,0);
+ const TQ = data.reduce((a,p)=>a+p.qty,0);
+ const maxP = Math.max(...data.map(p=>p.price));
+ const premCount = data.filter(p=>p.price>=500).length;
+
+ document.getElementById('finTitle').textContent = (LANG==='en'?'Financial Analysis — ':'التحليل المالي — ')+nm;
+ document.getElementById('finSub').textContent = `${LANG==='en'?'Total Value:':'إجمالي القيمة:'} ${fmt(TV)}`;
+
+ // KPIs
+ const topProd = [...data].sort((a,b)=>b.total-a.total)[0];
+ document.getElementById('finKpis').innerHTML = `
+  <div class="kpi" style="--ka:#d29922"><div class="kpi-lbl">${LANG==='en'?'TOTAL VALUE':'إجمالي القيمة'}</div><div class="kpi-val" style="color:#d29922;font-size:18px">${fmt(TV)}</div><div class="kpi-sub">${LANG==='en'?'full inventory value':'قيمة المخزون الكاملة'}</div></div>
+  <div class="kpi" style="--ka:#3fb950"><div class="kpi-lbl">${LANG==='en'?'TOP CATEGORY':'أعلى فئة'}</div><div class="kpi-val" style="color:#3fb950;font-size:16px">${fmt(Object.values(cd).sort((a,b)=>b.val-a.val)[0].val)}</div><div class="kpi-sub">${Object.entries(cd).sort((a,b)=>b[1].val-a[1].val)[0][0]}</div></div>
+  <div class="kpi" style="--ka:#388bfd"><div class="kpi-lbl">${LANG==='en'?'TOP PRODUCT':'أعلى منتج'}</div><div class="kpi-val" style="color:#388bfd;font-size:16px">${fmt(topProd.total)}</div><div class="kpi-sub">${pname(topProd).slice(0,22)}…</div></div>
+  <div class="kpi" style="--ka:#a78bfa"><div class="kpi-lbl">${LANG==='en'?'AVG VALUE':'متوسط القيمة'}</div><div class="kpi-val" style="color:#a78bfa;font-size:18px">${fmt(TV/data.length)}</div><div class="kpi-sub">${LANG==='en'?'per product type':'لكل نوع منتج'}</div></div>
+  <div class="kpi" style="--ka:#22d3ee"><div class="kpi-lbl">${LANG==='en'?'PREMIUM +$500':'بريميوم +$500'}</div><div class="kpi-val" style="color:#22d3ee">${premCount}</div><div class="kpi-sub">${LANG==='en'?'products over $500':'منتج بسعر +$500'}</div></div>`;
+
+ // Value bars
+ const sorted = Object.entries(cd).sort((a,b)=>b[1].val-a[1].val);
+ const maxV = sorted[0][1].val;
+ const vb = document.getElementById('vBars'); vb.innerHTML='';
+ sorted.forEach(([cat,d])=>{
+  const col = catColor(cat), pct = Math.round(d.val/maxV*100), vp = (d.val/TV*100).toFixed(1);
+  vb.innerHTML += `<div class="brow">
+   <span class="bname" style="color:var(--text)">${cat}</span>
+   <div class="btrack"><div class="bfill" style="width:${pct}%;background:${col}90"></div></div>
+   <span class="bv" style="min-width:75px">${fmt(d.val)}</span>
+   <span class="bpct">${vp}%</span></div>`;
+ });
+
+ // Donut
+ if(chartDonutV) chartDonutV.destroy();
+ const labels = sorted.map(([c])=>c), vals = sorted.map(([,d])=>d.val), cols = labels.map(l=>catColor(l));
+ chartDonutV = new Chart(document.getElementById('donutV').getContext('2d'),{type:'doughnut',
+  data:{labels,datasets:[{data:vals,backgroundColor:cols,borderWidth:2,borderColor:'#161b22'}]},
+  options:{responsive:true,maintainAspectRatio:false,cutout:'60%',plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>`${c.label}: ${fmt(c.parsed)} (${(c.parsed/TV*100).toFixed(1)}%)`}}}}});
+ document.getElementById('donutVCenter').textContent = fmt(TV).replace('$','$');
+ const leg = document.getElementById('dVLeg'); leg.innerHTML='';
+ labels.slice(0,7).forEach((l,i)=>{
+  const pct = (vals[i]/TV*100).toFixed(1);
+  leg.innerHTML += `<div class="dli"><span class="dld" style="background:${cols[i]}"></span><span class="dln">${l}</span><span class="dlv">${fmt(vals[i])}</span><span class="dlp">${pct}%</span></div>`;
+ });
+
+ // Top 15 value
+ const top15 = [...data].sort((a,b)=>b.total-a.total).slice(0,15);
+ const t15 = document.getElementById('top15V'); t15.innerHTML='';
+ const mT = top15[0].total;
+ top15.forEach(p=>{
+  const col = catColor(p.cat), pct = Math.round(p.total/mT*100), nm = pname(p);
+  t15.innerHTML += `<div class="brow">
+   <span class="bname">${nm.length>22?nm.slice(0,22)+'…':nm}</span>
+   <div class="btrack"><div class="bfill" style="width:${pct}%;background:${col}90"></div></div>
+   <span class="bv" style="min-width:75px">${fmt(p.total)}</span>
+   <span class="bq" style="min-width:50px;font-size:9.5px;color:var(--text3)">${p.qty} ${LANG==='en'?'u':'و'}</span></div>`;
+ });
+}
+
+/* ═══════════════════════════════════════════════
+   ALERTS — PER WAREHOUSE
+═══════════════════════════════════════════════ */
+const ALERTS = {
+ main:[
+  {type:'a-d',ico:'🚨',title:{ar:'21 منتج بكمية 1-2 وحدة فقط',en:'21 Products with Only 1-2 Units'},body:{ar:'منتجات بريميوم بسعر $800+ — خطر نفاد فوري بدون إعادة طلب',en:'Premium products $800+ — immediate stockout risk without reorder'}},
+  {type:'a-d',ico:'🍽️',title:{ar:'غسالات الصحون — 8 وحدات إجمالاً',en:'Dishwashers — Only 8 Units Total'},body:{ar:'4 طرازات بأقل من 3 وحدات كل منها — مستوى حرج',en:'4 models with less than 3 units each — critical level'}},
+  {type:'a-w',ico:'🌡️',title:{ar:'سبالت — 163 وحدة قبل موسم الصيف',en:'AC Units — 163 Before Summer Peak'},body:{ar:'إنفرتر 47 + عادي 113 — مطلوب تعزيز عاجل للصيف العراقي',en:'Inverter 47 + Standard 113 — urgent reinforcement needed for Iraqi summer'}},
+  {type:'a-s',ico:'🏆',title:{ar:'$418K طباخات Snowa Gc — جاهزة للبيع',en:'$418K Snowa Gc Cookers — Ready to Sell'},body:{ar:'9 طرازات بمخزون وفير — وقت مثالي لحملات الجملة والمعارض',en:'9 models with ample stock — perfect time for wholesale campaigns'}},
+ ],
+ show:[
+  {type:'a-d',ico:'📺',title:{ar:'تلفزيون QLED 55 — 223 وحدة في المعرض',en:'QLED 55 TV — 223 Units in Showroom'},body:{ar:'يمثل 59.6% من الوحدات و63.8% من قيمة مخزن المعرض',en:'Represents 59.6% of units and 63.8% of showroom value'}},
+  {type:'a-w',ico:'🔌',title:{ar:'معظم المنتجات بوحدة واحدة فقط',en:'Most Products Have Only 1 Unit'},body:{ar:'49 من أصل 53 منتج بوحدة واحدة — مخزن عرض وليس بيع بالجملة',en:'49 of 53 products have 1 unit — display stock not for wholesale'}},
+  {type:'a-s',ico:'🧺',title:{ar:'KARIZMA 8kg — 28 وحدة بيع',en:'KARIZMA 8kg — 28 Sales Units'},body:{ar:'$250 × 28 = $7,003 — المنتج الثاني من حيث القيمة في المعرض',en:'$250 × 28 = $7,003 — second highest value product in showroom'}},
+ ],
+ maint:[
+  {type:'a-d',ico:'📺',title:{ar:'تلفزيون QLED 55 — 200 وحدة للصيانة؟',en:'QLED 55 TV — 200 Units for Maintenance?'},body:{ar:'200 وحدة بقيمة $41,200 — يجب التحقق: هل هذا صحيح أم خطأ في البيانات؟',en:'200 units worth $41,200 — must verify: correct or data error?'}},
+  {type:'a-w',ico:'🔧',title:{ar:'كل منتجات الصيانة بوحدة واحدة فقط',en:'All Maintenance Products Have 1 Unit Each'},body:{ar:'10 من أصل 11 منتج بوحدة واحدة — تحتاج متابعة مستمرة',en:'10 of 11 products have 1 unit — needs continuous monitoring'}},
+  {type:'a-i',ico:'❄️',title:{ar:'سبالت إنفرتر 1.5 طن — $440 الوحدة',en:'Inverter AC 1.5T — $440 per Unit'},body:{ar:'أعلى سعر في مخزن الصيانة — احرص على سلامة التخزين',en:'Highest price in maintenance warehouse — ensure proper storage'}},
+ ]
+};
+
+function renderAlerts(){
+ const cfg = WH_CONFIG[CUR_WH];
+ const nm = LANG==='en'?cfg.name.en:cfg.name.ar;
+ document.getElementById('alertTitle').textContent = (LANG==='en'?'Alerts — ':'التنبيهات — ')+nm;
+ const alts = ALERTS[CUR_WH];
+ const ac = document.getElementById('alertContent');
+ ac.innerHTML = `<div class="g2">
+  <div>${alts.slice(0,Math.ceil(alts.length/2)).map(a=>`<div class="alert ${a.type}"><div class="aico">${a.ico}</div><div><div class="atit">${a.title[LANG]}</div><div class="abod">${a.body[LANG]}</div></div></div>`).join('')}</div>
+  <div>${alts.slice(Math.ceil(alts.length/2)).map(a=>`<div class="alert ${a.type}"><div class="aico">${a.ico}</div><div><div class="atit">${a.title[LANG]}</div><div class="abod">${a.body[LANG]}</div></div></div>`).join('')}</div>
+ </div>`;
+}
+
+/* ═══════════════════════════════════════════════
+   PRIORITIES — PER WAREHOUSE
+═══════════════════════════════════════════════ */
+const PRIS = {
+ main:[
+  {r:1,u:{ar:'حرج',en:'Critical'},c:'#f85149',bg:'rgba(248,81,73,.15)',n:{ar:'جرد المنتجات أحادية الوحدة',en:'Audit Single-Unit Products'},d:{ar:'21 منتج بريميوم +$800 بوحدة واحدة',en:'21 premium products $800+ with 1 unit'},a:{ar:'قرار إعادة طلب فوري',en:'Immediate reorder decision'},sc:10},
+  {r:2,u:{ar:'حرج',en:'Critical'},c:'#f85149',bg:'rgba(248,81,73,.15)',n:{ar:'نقص غسالات الصحون',en:'Dishwasher Stock Shortage'},d:{ar:'8 وحدات فقط في 4 طرازات',en:'Only 8 units in 4 models'},a:{ar:'تقييم الطلب أو إعادة الطلبية',en:'Evaluate demand or reorder'},sc:9},
+  {r:3,u:{ar:'عاجل',en:'Urgent'},c:'#d29922',bg:'rgba(210,153,34,.15)',n:{ar:'تعزيز السبالت قبل الصيف',en:'Reinforce AC Before Summer'},d:{ar:'163 وحدة — موسم الذروة قريب',en:'163 units — peak season approaching'},a:{ar:'طلب 300+ وحدة إضافية',en:'Order 300+ additional units'},sc:8},
+  {r:4,u:{ar:'مهم',en:'Important'},c:'#388bfd',bg:'rgba(56,139,253,.15)',n:{ar:'حملة طباخات Snowa Gc',en:'Snowa Gc Cooker Campaign'},d:{ar:'$418K جاهزة للبيع والترويج',en:'$418K ready for sales and promotion'},a:{ar:'خصومات الموزعين',en:'Distributor discounts'},sc:7},
+  {r:5,u:{ar:'فرصة',en:'Opportunity'},c:'#3fb950',bg:'rgba(63,185,80,.15)',n:{ar:'صانع الشاي — 500 وحدة ترويجية',en:'Tea Maker — 500 Promo Units'},d:{ar:'$13.74 للوحدة — هدية مثالية مع الطباخات',en:'$13.74/unit — ideal gift with cookers'},a:{ar:'عروض احتواء',en:'Bundle offers'},sc:5},
+ ],
+ show:[
+  {r:1,u:{ar:'حرج',en:'Critical'},c:'#f85149',bg:'rgba(248,81,73,.15)',n:{ar:'مراجعة 200 تلفزيون QLED',en:'Review 200 QLED TVs'},d:{ar:'200 وحدة بمخزن العرض — هل صحيحة؟',en:'200 units in showroom — are they correct?'},a:{ar:'تدقيق الجرد فوراً',en:'Audit inventory immediately'},sc:10},
+  {r:2,u:{ar:'عاجل',en:'Urgent'},c:'#d29922',bg:'rgba(210,153,34,.15)',n:{ar:'إدارة منتجات الوحدة الواحدة',en:'Manage Single-Unit Products'},d:{ar:'49 من 53 منتج بوحدة واحدة فقط',en:'49 of 53 products with only 1 unit'},a:{ar:'تحديد ما يحتاج تعزيز',en:'Identify what needs reinforcement'},sc:8},
+  {r:3,u:{ar:'مهم',en:'Important'},c:'#388bfd',bg:'rgba(56,139,253,.15)',n:{ar:'ترويج KARIZMA 8kg Tecnogaz',en:'Promote KARIZMA 8kg Tecnogaz'},d:{ar:'28 وحدة × $250 = $7,003',en:'28 units × $250 = $7,003'},a:{ar:'عروض موسمية',en:'Seasonal promotions'},sc:6},
+  {r:4,u:{ar:'فرصة',en:'Opportunity'},c:'#3fb950',bg:'rgba(63,185,80,.15)',n:{ar:'ثلاجات Snowa Ref — 8 طرازات',en:'Snowa Ref — 8 Models'},d:{ar:'$5,241 قيمة ثلاجات المعرض',en:'$5,241 showroom refrigerator value'},a:{ar:'تحسين ترتيب العرض',en:'Improve display arrangement'},sc:4},
+ ],
+ maint:[
+  {r:1,u:{ar:'حرج',en:'Critical'},c:'#f85149',bg:'rgba(248,81,73,.15)',n:{ar:'التحقق من 200 وحدة QLED',en:'Verify 200 QLED TV Units'},d:{ar:'$41,200 قيمة ضخمة في مخزن الصيانة',en:'$41,200 massive value in maintenance'},a:{ar:'تدقيق فوري',en:'Immediate audit'},sc:10},
+  {r:2,u:{ar:'عاجل',en:'Urgent'},c:'#d29922',bg:'rgba(210,153,34,.15)',n:{ar:'سبالت 1.5 طن إنفرتر تحكم',en:'1.5T Inverter Control AC'},d:{ar:'$440 — أعلى سعر في الصيانة',en:'$440 — highest price in maintenance'},a:{ar:'متابعة حالة الصيانة',en:'Monitor maintenance status'},sc:7},
+  {r:3,u:{ar:'مهم',en:'Important'},c:'#388bfd',bg:'rgba(56,139,253,.15)',n:{ar:'جرد الثلاجات في الصيانة',en:'Audit Refrigerators in Maintenance'},d:{ar:'ثلاجة BOST + ثلاجة SNOWA = $659',en:'BOST + SNOWA fridges = $659'},a:{ar:'تقرير حالة شهري',en:'Monthly status report'},sc:5},
+ ]
+};
+
+function renderPri(){
+ const cfg = WH_CONFIG[CUR_WH];
+ const nm = LANG==='en'?cfg.name.en:cfg.name.ar;
+ document.getElementById('priTitle').textContent = (LANG==='en'?'Priorities — ':'الأولويات — ')+nm;
+ const pris = PRIS[CUR_WH];
+ const pl = document.getElementById('priList'); pl.innerHTML='';
+ pris.forEach(p=>{
+  pl.innerHTML += `<div class="prow">
+   <div class="prank" style="background:${p.bg};color:${p.c}">${p.r}</div>
+   <div class="pinfo"><div class="pname">${p.n[LANG]}</div><div class="pdesc">${p.d[LANG]}</div></div>
+   <div class="pright"><span class="badge" style="background:${p.bg};color:${p.c};display:block;margin-bottom:3px">${p.u[LANG]}</span>
+   <span style="font-size:9.5px;color:var(--text3)">${p.a[LANG]}</span></div>
+  </div>`;
+ });
+
+ if(chartUrg) chartUrg.destroy();
+ chartUrg = new Chart(document.getElementById('cUrg').getContext('2d'),{type:'bar',
+  data:{labels:pris.map(p=>p.n[LANG].slice(0,16)+'…'),datasets:[{data:pris.map(p=>p.sc),backgroundColor:pris.map(p=>p.c+'aa'),borderColor:pris.map(p=>p.c),borderWidth:1,borderRadius:4}]},
+  options:{responsive:true,maintainAspectRatio:false,indexAxis:'y',plugins:{legend:{display:false}},
+   scales:{x:{max:11,ticks:{color:'#8b949e',font:cfont()},grid:{color:'rgba(255,255,255,0.04)'}},y:{ticks:{color:'#8b949e',font:cfont()},grid:{color:'rgba(255,255,255,0.04)'}}}}});
+
+ const tl = document.getElementById('timeline');
+ const TL = {
+  main:[
+   {tag:{ar:'هذا الأسبوع',en:'This Week'},bg:'#f85149',col:'#fff',text:{ar:'جرد المنتجات أحادية الوحدة · مراجعة القطع بسعر صفر',en:'Audit single-unit products · Review zero-price spare parts'}},
+   {tag:{ar:'أسبوعان',en:'2 Weeks'},bg:'#d29922',col:'#1a1000',text:{ar:'طلب تعزيز السبالت · تقييم غسالات الصحون',en:'Order AC reinforcement · Evaluate dishwasher demand'}},
+   {tag:{ar:'هذا الشهر',en:'This Month'},bg:'#388bfd',col:'#fff',text:{ar:'حملة طباخات Snowa Gc · عروض صانع الشاي',en:'Snowa Gc cooker campaign · Tea maker promotions'}},
+   {tag:{ar:'الربع القادم',en:'Next Quarter'},bg:'#3fb950',col:'#001a00',text:{ar:'توسيع الثلاجات · شاشات 75 بوصة',en:'Expand fridges · 75" screens focus'}},
+  ],
+  show:[
+   {tag:{ar:'فوري',en:'Immediate'},bg:'#f85149',col:'#fff',text:{ar:'التحقق من 200 وحدة QLED في المعرض',en:'Verify 200 QLED units in showroom'}},
+   {tag:{ar:'أسبوعان',en:'2 Weeks'},bg:'#d29922',col:'#1a1000',text:{ar:'مراجعة قائمة الوحدات الفردية وتحديد الأولويات',en:'Review single-unit list and prioritize'}},
+   {tag:{ar:'هذا الشهر',en:'This Month'},bg:'#388bfd',col:'#fff',text:{ar:'تحسين ترتيب العرض · ترويج KARIZMA',en:'Improve display layout · KARIZMA promotion'}},
+  ],
+  maint:[
+   {tag:{ar:'فوري',en:'Immediate'},bg:'#f85149',col:'#fff',text:{ar:'تدقيق 200 وحدة QLED في الصيانة',en:'Audit 200 QLED units in maintenance'}},
+   {tag:{ar:'أسبوعان',en:'2 Weeks'},bg:'#d29922',col:'#1a1000',text:{ar:'تقرير حالة جميع المنتجات تحت الصيانة',en:'Status report for all products under maintenance'}},
+   {tag:{ar:'شهري',en:'Monthly'},bg:'#388bfd',col:'#fff',text:{ar:'تحديث سجل الصيانة وإغلاق الطلبات المكتملة',en:'Update maintenance log and close completed orders'}},
+  ]
+ };
+ tl.innerHTML='';
+ TL[CUR_WH].forEach(item=>{
+  tl.innerHTML += `<div class="tl-item"><div class="tl-tag" style="background:${item.bg};color:${item.col}">${item.tag[LANG]}</div><div style="color:var(--text2)">${item.text[LANG]}</div></div>`;
+ });
+}
+
+/* ═══════════════════════════════════════════════
+   OVERVIEW COMPARE CHARTS
+═══════════════════════════════════════════════ */
+function initCompareCharts(){
+ if(chartCompV) chartCompV.destroy();
+ if(chartCompQ) chartCompQ.destroy();
+ const labels = LANG==='en'?['Main Warehouse','Showroom','Maintenance']:['المخزن الأساسي','المعرض','الصيانة'];
+ const vals = [687510,71984,44382];
+ const qtys = [78,53,11];
+ const cols = ['#388bfd','#a78bfa','#d29922'];
+ chartCompV = new Chart(document.getElementById('cCompareVal').getContext('2d'),{type:'bar',
+  data:{labels,datasets:[{data:vals,backgroundColor:cols.map(c=>c+'99'),borderColor:cols,borderWidth:1,borderRadius:6}]},
+  options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>fmt(c.parsed)}}},
+   scales:{x:{ticks:{color:'#8b949e',font:cfont()},grid:{color:'rgba(255,255,255,0.04)'}},y:{ticks:{color:'#8b949e',font:cfont(),callback:v=>fmt(v)},grid:{color:'rgba(255,255,255,0.04)'}}}}});
+ chartCompQ = new Chart(document.getElementById('cCompareQty').getContext('2d'),{type:'doughnut',
+  data:{labels,datasets:[{data:qtys,backgroundColor:cols,borderWidth:2,borderColor:'#161b22'}]},
+  options:{responsive:true,maintainAspectRatio:false,cutout:'55%',plugins:{legend:{labels:{color:'#8b949e',font:cfont(),boxWidth:10}},tooltip:{callbacks:{label:c=>`${c.label}: ${c.parsed} ${LANG==='en'?'products':'منتج'}`}}}}});
+}
+
+/* ═══════════════════════════════════════════════
+   LANGUAGE
+═══════════════════════════════════════════════ */
+function setLang(l, btn){
+ LANG = l;
+ document.querySelectorAll('.lang-opt').forEach(b=>b.classList.remove('active'));
+ btn.classList.add('active');
+ if(l==='en'){ document.body.classList.add('en'); document.documentElement.setAttribute('dir','ltr'); }
+ else{ document.body.classList.remove('en'); document.documentElement.setAttribute('dir','rtl'); }
+ document.querySelectorAll('[data-ar]').forEach(el=>{ el.textContent=l==='en'?el.dataset.en:el.dataset.ar; });
+ const si = document.getElementById('srch');
+ if(si) si.placeholder = l==='en'?'🔍 Search...':'🔍 بحث...';
+ switchWH(CUR_WH, document.querySelector(`.ws-tab.active-${CUR_WH}`));
+ const ap = document.querySelector('.page.active');
+ if(ap) renderPageContent(ap.id.replace('page-',''));
+}
+
+/* ═══════════════════════════════════════════════
+   EXPORT CSV
+═══════════════════════════════════════════════ */
+function exportCSV(){
+ const data = curData();
+ const h = LANG==='en'?['#','Category','Model','Product','Price $','Qty','Total $','Status']:['#','الفئة','الموديل','المنتج','السعر $','الكمية','الإجمالي $','الحالة'];
+ const rows = data.map((p,i)=>[i+1,p.cat,p.code,LANG==='en'?p.nameEn:p.name,p.price,p.qty,p.total.toFixed(2),sl(p.qty).l]);
+ const csv = [h,...rows].map(r=>r.join(',')).join('\n');
+ const blob = new Blob(['\uFEFF'+csv],{type:'text/csv;charset=utf-8;'});
+ const a = document.createElement('a');
+ a.href = URL.createObjectURL(blob);
+ a.download = `ibda-alhaya-${CUR_WH}-${LANG}.csv`;
+ a.click();
+}
+
+/* ═══════════════════════════════════════════════
+   INIT
+═══════════════════════════════════════════════ */
+document.addEventListener('DOMContentLoaded',()=>{
+ buildCatTabs();
+ renderTable();
+ initProdCharts();
+});
+</script>
+
+
+</body></html>
